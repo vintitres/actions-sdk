@@ -1,0 +1,51 @@
+{
+  "name": "@credal/actions",
+  "version": "0.1.0",
+  "description": "AI Actions by Credal AI",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev -r tsconfig-paths/register src/app.ts",
+    "generate:types": "ts-node -r tsconfig-paths/register src/actions/parse.ts",
+    "prepare": "npm run build",
+    "lint": "eslint 'src/**/*.{js,ts}'",
+    "prettier-check": "prettier --check 'src/**/*.{js,ts,json,css,md}'",
+    "prettier-format": "prettier --write 'src/**/*.{js,ts,json,css,md}'"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.16.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "eslint": "^9.16.0",
+    "globals": "^15.13.0",
+    "js-yaml": "^4.1.0",
+    "prettier": "^3.4.2",
+    "ts-morph": "^24.0.0",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0"
+  },
+  "dependencies": {
+    "@credal/sdk": "^0.0.21",
+    "@slack/web-api": "^7.8.0",
+    "@types/snowflake-sdk": "^1.6.24",
+    "ajv": "^8.17.1",
+    "json-schema-to-zod": "^2.5.0",
+    "mongodb": "^6.13.1",
+    "snowflake-sdk": "^2.0.2",
+    "ts-node": "^10.9.2",
+    "zod": "^3.24.1"
+  }
+}
