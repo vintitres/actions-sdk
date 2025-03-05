@@ -6,6 +6,7 @@ export const AuthParamsSchema = z.object({
   authToken: z.string().optional(),
   baseUrl: z.string().optional(),
   apiKey: z.string().optional(),
+  userAgent: z.string().optional(),
 });
 
 export type AuthParamsType = z.infer<typeof AuthParamsSchema>;
@@ -295,4 +296,29 @@ export type openstreetmapGetLatitudeLongitudeFromLocationFunction = ActionFuncti
   openstreetmapGetLatitudeLongitudeFromLocationParamsType,
   AuthParamsType,
   openstreetmapGetLatitudeLongitudeFromLocationOutputType
+>;
+
+export const nwsGetForecastForLocationParamsSchema = z.object({
+  latitude: z.number().describe("The latitude of the location"),
+  longitude: z.number().describe("The longitude of the location"),
+  isoDate: z.string().describe("The date to get the forecast for, in ISO datetime format"),
+});
+
+export type nwsGetForecastForLocationParamsType = z.infer<typeof nwsGetForecastForLocationParamsSchema>;
+
+export const nwsGetForecastForLocationOutputSchema = z.object({
+  result: z
+    .object({
+      temperature: z.number().describe("The temperature at the location"),
+      temperatureUnit: z.string().describe("The unit of temperature"),
+      forecast: z.string().describe("The forecast for the location"),
+    })
+    .optional(),
+});
+
+export type nwsGetForecastForLocationOutputType = z.infer<typeof nwsGetForecastForLocationOutputSchema>;
+export type nwsGetForecastForLocationFunction = ActionFunction<
+  nwsGetForecastForLocationParamsType,
+  AuthParamsType,
+  nwsGetForecastForLocationOutputType
 >;
