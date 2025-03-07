@@ -1,9 +1,9 @@
 import axios from "axios";
 import {
-  googlemapsNearbysearchFunction,
-  googlemapsNearbysearchParamsType,
-  googlemapsNearbysearchOutputType,
-  googlemapsNearbysearchOutputSchema,
+  googlemapsNearbysearchRestaurantsFunction,
+  googlemapsNearbysearchRestaurantsParamsType,
+  googlemapsNearbysearchRestaurantsOutputType,
+  googlemapsNearbysearchRestaurantsOutputSchema,
   AuthParamsType,
 } from "../../autogen/types";
 
@@ -27,50 +27,18 @@ interface NearbySearchResult {
         weekdayDescriptions: string[];
       }
     | undefined;
+  websiteUri: string;
 }
 
-const INCLUDED_TYPES = [
-  "monument",
-  "museum",
-  "art_gallery",
-  "sculpture",
-  "cultural_landmark",
-  "historical_place",
-  "performing_arts_theater",
-  "university",
-  "aquarium",
-  "botanical_garden",
-  "comedy_club",
-  "park",
-  "movie_theater",
-  "national_park",
-  "garden",
-  "night_club",
-  "tourist_attraction",
-  "water_park",
-  "zoo",
-  "bar",
-  "restaurant",
-  "food_court",
-  "bakery",
-  "cafe",
-  "coffee_shop",
-  "pub",
-  "wine_bar",
-  "spa",
-  "beach",
-  "market",
-  "shopping_mall",
-  "stadium",
-];
+const INCLUDED_TYPES = ["restaurant"];
 
-const nearbysearch: googlemapsNearbysearchFunction = async ({
+const nearbysearchRestaurants: googlemapsNearbysearchRestaurantsFunction = async ({
   params,
   authParams,
 }: {
-  params: googlemapsNearbysearchParamsType;
+  params: googlemapsNearbysearchRestaurantsParamsType;
   authParams: AuthParamsType;
-}): Promise<googlemapsNearbysearchOutputType> => {
+}): Promise<googlemapsNearbysearchRestaurantsOutputType> => {
   const url = `https://places.googleapis.com/v1/places:searchNearby`;
 
   const fieldMask = [
@@ -81,6 +49,7 @@ const nearbysearch: googlemapsNearbysearchFunction = async ({
     "places.primaryTypeDisplayName",
     "places.editorialSummary",
     "places.regularOpeningHours",
+    "places.websiteUri",
   ].join(",");
   const response = await axios.post<{ places: NearbySearchResult[] }>(
     url,
@@ -93,7 +62,7 @@ const nearbysearch: googlemapsNearbysearchFunction = async ({
             latitude: params.latitude,
             longitude: params.longitude,
           },
-          radius: 10000,
+          radius: 5000,
         },
       },
     },
@@ -106,7 +75,7 @@ const nearbysearch: googlemapsNearbysearchFunction = async ({
     },
   );
 
-  return googlemapsNearbysearchOutputSchema.parse({
+  return googlemapsNearbysearchRestaurantsOutputSchema.parse({
     results: response.data.places.map((place: NearbySearchResult) => ({
       name: place.displayName.text,
       address: place.formattedAddress,
@@ -115,8 +84,9 @@ const nearbysearch: googlemapsNearbysearchFunction = async ({
       primaryType: place.primaryTypeDisplayName.text,
       editorialSummary: place.editorialSummary?.text || "",
       openingHours: place.regularOpeningHours?.weekdayDescriptions.join("\n") || "",
+      websiteUri: place.websiteUri,
     })),
   });
 };
 
-export default nearbysearch;
+export default nearbysearchRestaurants;

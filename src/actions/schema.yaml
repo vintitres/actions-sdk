@@ -244,7 +244,7 @@ actions:
               uspsAddressPrecision:
                 type: string
                 description: The level of precision for the USPS address.
-    nearbysearch:
+    nearbysearchRestaurants:
       description: Search for nearby places using Google Maps
       scopes: []
       parameters:
@@ -288,7 +288,9 @@ actions:
                 editorialSummary:
                   type: string
                   description: The editorial summary of the place
-
+                websiteUri:
+                  type: string
+                  description: The website URI of the place
 
   credal:
     callCopilot:

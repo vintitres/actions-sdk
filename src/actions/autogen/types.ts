@@ -183,14 +183,14 @@ export type googlemapsValidateAddressFunction = ActionFunction<
   googlemapsValidateAddressOutputType
 >;
 
-export const googlemapsNearbysearchParamsSchema = z.object({
+export const googlemapsNearbysearchRestaurantsParamsSchema = z.object({
   latitude: z.number().describe("The latitude of the location to search nearby"),
   longitude: z.number().describe("The longitude of the location to search nearby"),
 });
 
-export type googlemapsNearbysearchParamsType = z.infer<typeof googlemapsNearbysearchParamsSchema>;
+export type googlemapsNearbysearchRestaurantsParamsType = z.infer<typeof googlemapsNearbysearchRestaurantsParamsSchema>;
 
-export const googlemapsNearbysearchOutputSchema = z.object({
+export const googlemapsNearbysearchRestaurantsOutputSchema = z.object({
   results: z
     .array(
       z.object({
@@ -201,16 +201,17 @@ export const googlemapsNearbysearchOutputSchema = z.object({
         openingHours: z.string().describe("The opening hours of the place").optional(),
         primaryType: z.string().describe("The primary type of the place").optional(),
         editorialSummary: z.string().describe("The editorial summary of the place").optional(),
+        websiteUri: z.string().describe("The website URI of the place").optional(),
       }),
     )
     .describe("The results of the nearby search"),
 });
 
-export type googlemapsNearbysearchOutputType = z.infer<typeof googlemapsNearbysearchOutputSchema>;
-export type googlemapsNearbysearchFunction = ActionFunction<
-  googlemapsNearbysearchParamsType,
+export type googlemapsNearbysearchRestaurantsOutputType = z.infer<typeof googlemapsNearbysearchRestaurantsOutputSchema>;
+export type googlemapsNearbysearchRestaurantsFunction = ActionFunction<
+  googlemapsNearbysearchRestaurantsParamsType,
   AuthParamsType,
-  googlemapsNearbysearchOutputType
+  googlemapsNearbysearchRestaurantsOutputType
 >;
 
 export const credalCallCopilotParamsSchema = z.object({
