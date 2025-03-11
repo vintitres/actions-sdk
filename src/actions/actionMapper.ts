@@ -7,6 +7,8 @@ import {
   credalCallCopilotParamsSchema,
   googlemapsValidateAddressOutputSchema,
   googlemapsValidateAddressParamsSchema,
+  googleOauthCreateNewGoogleDocParamsSchema,
+  googleOauthCreateNewGoogleDocOutputSchema,
   mathAddOutputSchema,
   mathAddParamsSchema,
   mongoInsertMongoDocOutputSchema,
@@ -50,6 +52,7 @@ import nearbysearch from "./providers/googlemaps/nearbysearchRestaurants";
 import scrapeUrl from "./providers/firecrawl/scrapeUrl";
 import sendEmail from "./providers/resend/sendEmail";
 import createShareLinkedinPostUrl from "./providers/linkedin/createSharePostLinkedinUrl";
+import createNewGoogleDoc from "./providers/google-oauth/createNewGoogleDoc";
 
 interface ActionFunctionComponents {
   // eslint-disable-next-line
@@ -165,6 +168,13 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: sendEmail,
       paramsSchema: resendSendEmailParamsSchema,
       outputSchema: resendSendEmailOutputSchema,
+    },
+  },
+  googleOauth: {
+    createNewGoogleDoc: {
+      fn: createNewGoogleDoc,
+      paramsSchema: googleOauthCreateNewGoogleDocParamsSchema,
+      outputSchema: googleOauthCreateNewGoogleDocOutputSchema,
     },
   },
 };

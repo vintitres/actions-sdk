@@ -753,3 +753,37 @@ export const resendSendEmailDefinition: ActionTemplate = {
   name: "sendEmail",
   provider: "resend",
 };
+export const googleOauthCreateNewGoogleDocDefinition: ActionTemplate = {
+  description: "Create a new Google Docs document using OAuth authentication",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["title"],
+    properties: {
+      title: {
+        type: "string",
+        description: "The title of the new Google Doc",
+      },
+      content: {
+        type: "string",
+        description: "The content to add to the new Google Doc",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["documentId"],
+    properties: {
+      documentId: {
+        type: "string",
+        description: "The ID of the created Google Doc",
+      },
+      documentUrl: {
+        type: "string",
+        description: "The URL to access the created Google Doc",
+      },
+    },
+  },
+  name: "createNewGoogleDoc",
+  provider: "googleOauth",
+};

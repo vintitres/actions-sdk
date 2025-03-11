@@ -411,3 +411,22 @@ export type resendSendEmailFunction = ActionFunction<
   AuthParamsType,
   resendSendEmailOutputType
 >;
+
+export const googleOauthCreateNewGoogleDocParamsSchema = z.object({
+  title: z.string().describe("The title of the new Google Doc"),
+  content: z.string().describe("The content to add to the new Google Doc").optional(),
+});
+
+export type googleOauthCreateNewGoogleDocParamsType = z.infer<typeof googleOauthCreateNewGoogleDocParamsSchema>;
+
+export const googleOauthCreateNewGoogleDocOutputSchema = z.object({
+  documentId: z.string().describe("The ID of the created Google Doc"),
+  documentUrl: z.string().describe("The URL to access the created Google Doc").optional(),
+});
+
+export type googleOauthCreateNewGoogleDocOutputType = z.infer<typeof googleOauthCreateNewGoogleDocOutputSchema>;
+export type googleOauthCreateNewGoogleDocFunction = ActionFunction<
+  googleOauthCreateNewGoogleDocParamsType,
+  AuthParamsType,
+  googleOauthCreateNewGoogleDocOutputType
+>;
