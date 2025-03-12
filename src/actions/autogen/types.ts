@@ -277,6 +277,44 @@ export type linkedinCreateShareLinkedinPostUrlFunction = ActionFunction<
   linkedinCreateShareLinkedinPostUrlOutputType
 >;
 
+export const xCreateShareXPostUrlParamsSchema = z.object({
+  text: z.string().describe("The text for the X(formerly twitter) post"),
+  url: z.string().describe("The url for the X(formerly twitter) post").optional(),
+  hashtag: z.array(z.string()).describe("List of hashtags to include in the X post").optional(),
+  via: z.string().describe("The twitter username to associate with the tweet").optional(),
+  inReplyTo: z.string().describe("The tweet ID to reply to").optional(),
+});
+
+export type xCreateShareXPostUrlParamsType = z.infer<typeof xCreateShareXPostUrlParamsSchema>;
+
+export const xCreateShareXPostUrlOutputSchema = z.object({
+  xUrl: z.string().describe("The share post X(formerly twitter) URL"),
+});
+
+export type xCreateShareXPostUrlOutputType = z.infer<typeof xCreateShareXPostUrlOutputSchema>;
+export type xCreateShareXPostUrlFunction = ActionFunction<
+  xCreateShareXPostUrlParamsType,
+  AuthParamsType,
+  xCreateShareXPostUrlOutputType
+>;
+
+export const xScrapePostDataWithNitterParamsSchema = z.object({
+  tweetUrl: z.string().describe("The url for the X(formerly twitter) post"),
+});
+
+export type xScrapePostDataWithNitterParamsType = z.infer<typeof xScrapePostDataWithNitterParamsSchema>;
+
+export const xScrapePostDataWithNitterOutputSchema = z.object({
+  text: z.string().describe("The text in the tweet URL"),
+});
+
+export type xScrapePostDataWithNitterOutputType = z.infer<typeof xScrapePostDataWithNitterOutputSchema>;
+export type xScrapePostDataWithNitterFunction = ActionFunction<
+  xScrapePostDataWithNitterParamsType,
+  AuthParamsType,
+  xScrapePostDataWithNitterOutputType
+>;
+
 export const mongoInsertMongoDocParamsSchema = z.object({
   databaseName: z.string().describe("Database to connect to"),
   collectionName: z.string().describe("Collection to insert the document into"),

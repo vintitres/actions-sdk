@@ -16,6 +16,8 @@ import {
   resendSendEmailDefinition,
   linkedinCreateShareLinkedinPostUrlDefinition,
   googleOauthCreateNewGoogleDocDefinition,
+  xCreateShareXPostUrlDefinition,
+  xScrapePostDataWithNitterDefinition,
 } from "../actions/autogen/templates";
 import { ActionTemplate } from "../actions/parse";
 
@@ -81,5 +83,9 @@ export const ACTION_GROUPS: ActionGroups = {
   RESEND: {
     description: "Action for sending an email",
     actions: [resendSendEmailDefinition],
+  },
+  X: {
+    description: "Actions for interacting with X(formerly twitter)",
+    actions: [xCreateShareXPostUrlDefinition, xScrapePostDataWithNitterDefinition],
   },
 };
