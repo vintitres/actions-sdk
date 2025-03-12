@@ -548,32 +548,6 @@ export const xCreateShareXPostUrlDefinition: ActionTemplate = {
   name: "createShareXPostUrl",
   provider: "x",
 };
-export const xScrapePostDataWithNitterDefinition: ActionTemplate = {
-  description: "Given A tweet URL scrape the tweet data with nitter+firecrawl",
-  scopes: [],
-  parameters: {
-    type: "object",
-    required: ["tweetUrl"],
-    properties: {
-      tweetUrl: {
-        type: "string",
-        description: "The url for the X(formerly twitter) post",
-      },
-    },
-  },
-  output: {
-    type: "object",
-    required: ["text"],
-    properties: {
-      text: {
-        type: "string",
-        description: "The text in the tweet URL",
-      },
-    },
-  },
-  name: "scrapePostDataWithNitter",
-  provider: "x",
-};
 export const mongoInsertMongoDocDefinition: ActionTemplate = {
   description: "Insert a document into a MongoDB collection",
   scopes: [],
@@ -784,6 +758,32 @@ export const firecrawlScrapeUrlDefinition: ActionTemplate = {
     },
   },
   name: "scrapeUrl",
+  provider: "firecrawl",
+};
+export const firecrawlScrapeTweetDataWithNitterDefinition: ActionTemplate = {
+  description: "Given A tweet URL scrape the tweet data with nitter+firecrawl",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["tweetUrl"],
+    properties: {
+      tweetUrl: {
+        type: "string",
+        description: "The url for the X(formerly twitter) post",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["text"],
+    properties: {
+      text: {
+        type: "string",
+        description: "The text in the tweet URL",
+      },
+    },
+  },
+  name: "scrapeTweetDataWithNitter",
   provider: "firecrawl",
 };
 export const resendSendEmailDefinition: ActionTemplate = {
