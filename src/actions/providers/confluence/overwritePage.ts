@@ -1,10 +1,10 @@
 import { AxiosRequestConfig } from "axios";
 import {
-  confluenceUpdatePageFunction,
-  confluenceUpdatePageParamsType,
-  confluenceUpdatePageOutputType,
+  confluenceOverwritePageFunction,
+  confluenceOverwritePageParamsType,
+  confluenceOverwritePageOutputType,
   AuthParamsType,
-} from "../../../actions/autogen/types";
+} from "../../autogen/types";
 import { axiosClient } from "../../util/axiosClient";
 
 function getConfluenceRequestConfig(baseUrl: string, username: string, apiToken: string): AxiosRequestConfig {
@@ -17,20 +17,23 @@ function getConfluenceRequestConfig(baseUrl: string, username: string, apiToken:
   };
 }
 
-const confluenceUpdatePage: confluenceUpdatePageFunction = async ({
+const confluenceOverwritePage: confluenceOverwritePageFunction = async ({
   params,
   authParams,
 }: {
-  params: confluenceUpdatePageParamsType;
+  params: confluenceOverwritePageParamsType;
   authParams: AuthParamsType;
-}): Promise<confluenceUpdatePageOutputType> => {
-  const { pageId, username, content, title } = params;
-  const { baseUrl, authToken } = authParams;
+}): Promise<confluenceOverwritePageOutputType> => {
+  const { pageId, content, title } = params;
+  const { baseUrl, authToken, username } = authParams;
 
-  const config = getConfluenceRequestConfig(baseUrl!, username, authToken!);
+  if (!baseUrl || !authToken || !username) {
+    throw new Error("Missing required authentication parameters");
+  }
+  const config = getConfluenceRequestConfig(baseUrl, username, authToken);
 
-  // Get current version number
-  const response = await axiosClient.get(`/api/v2/pages/${pageId}`, config);
+  // Get current page content and version number
+  const response = await axiosClient.get(`/api/v2/pages/${pageId}?body-format=storage`, config);
   const currVersion = response.data.version.number;
 
   const payload = {
@@ -49,4 +52,4 @@ const confluenceUpdatePage: confluenceUpdatePageFunction = async ({
   await axiosClient.put(`/api/v2/pages/${pageId}`, payload, config);
 };
 
-export default confluenceUpdatePage;
+export default confluenceOverwritePage;

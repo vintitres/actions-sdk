@@ -1,8 +1,8 @@
 import { z } from "zod";
 import {
   type ActionFunction,
-  confluenceUpdatePageOutputSchema,
-  confluenceUpdatePageParamsSchema,
+  confluenceOverwritePageParamsSchema,
+  confluenceOverwritePageOutputSchema,
   credalCallCopilotOutputSchema,
   credalCallCopilotParamsSchema,
   googlemapsValidateAddressOutputSchema,
@@ -43,8 +43,9 @@ import {
   finnhubSymbolLookupOutputSchema,
   finnhubGetBasicFinancialsParamsSchema,
   finnhubGetBasicFinancialsOutputSchema,
+  confluenceFetchPageContentParamsSchema,
+  confluenceFetchPageContentOutputSchema,
 } from "./autogen/types";
-import updatePage from "./providers/confluence/updatePage";
 import callCopilot from "./providers/credal/callCopilot";
 import validateAddress from "./providers/googlemaps/validateAddress";
 import add from "./providers/math/add";
@@ -65,6 +66,8 @@ import createXSharePostUrl from "./providers/x/createXSharePostUrl";
 import scrapeTweetDataWithNitter from "./providers/firecrawl/scrapeTweetDataWithNitter";
 import symbolLookup from "./providers/finnhub/symbolLookup";
 import getBasicFinancials from "./providers/finnhub/getBasicFinancials";
+import confluenceOverwritePage from "./providers/confluence/overwritePage";
+import confluenceFetchPageContent from "./providers/confluence/fetchPageContent";
 
 interface ActionFunctionComponents {
   // eslint-disable-next-line
@@ -94,10 +97,15 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
     },
   },
   confluence: {
-    updatePage: {
-      fn: updatePage,
-      paramsSchema: confluenceUpdatePageParamsSchema,
-      outputSchema: confluenceUpdatePageOutputSchema,
+    overwritePage: {
+      fn: confluenceOverwritePage,
+      paramsSchema: confluenceOverwritePageParamsSchema,
+      outputSchema: confluenceOverwritePageOutputSchema,
+    },
+    fetchPageContent: {
+      fn: confluenceFetchPageContent,
+      paramsSchema: confluenceFetchPageContentParamsSchema,
+      outputSchema: confluenceFetchPageContentOutputSchema,
     },
   },
   googlemaps: {

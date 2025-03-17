@@ -89,24 +89,20 @@ export const mathAddDefinition: ActionTemplate = {
   name: "add",
   provider: "math",
 };
-export const confluenceUpdatePageDefinition: ActionTemplate = {
+export const confluenceOverwritePageDefinition: ActionTemplate = {
   description: "Updates a Confluence page with the new content specified",
   scopes: [],
   parameters: {
     type: "object",
-    required: ["pageId", "title", "username", "content"],
+    required: ["pageId", "title", "content"],
     properties: {
       pageId: {
         type: "string",
-        description: "The page id that should be updated",
+        description: "The page id for the page to add content to",
       },
       title: {
         type: "string",
         description: "The title of the page that should be updated",
-      },
-      username: {
-        type: "string",
-        description: "The username of the person updating the page",
       },
       content: {
         type: "string",
@@ -114,7 +110,41 @@ export const confluenceUpdatePageDefinition: ActionTemplate = {
       },
     },
   },
-  name: "updatePage",
+  name: "overwritePage",
+  provider: "confluence",
+};
+export const confluenceFetchPageContentDefinition: ActionTemplate = {
+  description: "Fetches content from a Confluence page",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["pageId"],
+    properties: {
+      pageId: {
+        type: "string",
+        description: "The ID of the page to fetch content from",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["pageId", "title", "content"],
+    properties: {
+      pageId: {
+        type: "string",
+        description: "The ID of the page",
+      },
+      title: {
+        type: "string",
+        description: "The title of the page",
+      },
+      content: {
+        type: "string",
+        description: "The content of the page in storage format (HTML)",
+      },
+    },
+  },
+  name: "fetchPageContent",
   provider: "confluence",
 };
 export const jiraCreateJiraTicketDefinition: ActionTemplate = {

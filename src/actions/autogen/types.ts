@@ -70,22 +70,40 @@ export const mathAddOutputSchema = z.object({ result: z.number().describe("The s
 export type mathAddOutputType = z.infer<typeof mathAddOutputSchema>;
 export type mathAddFunction = ActionFunction<mathAddParamsType, AuthParamsType, mathAddOutputType>;
 
-export const confluenceUpdatePageParamsSchema = z.object({
-  pageId: z.string().describe("The page id that should be updated"),
+export const confluenceOverwritePageParamsSchema = z.object({
+  pageId: z.string().describe("The page id for the page to add content to"),
   title: z.string().describe("The title of the page that should be updated"),
-  username: z.string().describe("The username of the person updating the page"),
   content: z.string().describe("The new content for the page"),
 });
 
-export type confluenceUpdatePageParamsType = z.infer<typeof confluenceUpdatePageParamsSchema>;
+export type confluenceOverwritePageParamsType = z.infer<typeof confluenceOverwritePageParamsSchema>;
 
-export const confluenceUpdatePageOutputSchema = z.void();
+export const confluenceOverwritePageOutputSchema = z.void();
 
-export type confluenceUpdatePageOutputType = z.infer<typeof confluenceUpdatePageOutputSchema>;
-export type confluenceUpdatePageFunction = ActionFunction<
-  confluenceUpdatePageParamsType,
+export type confluenceOverwritePageOutputType = z.infer<typeof confluenceOverwritePageOutputSchema>;
+export type confluenceOverwritePageFunction = ActionFunction<
+  confluenceOverwritePageParamsType,
   AuthParamsType,
-  confluenceUpdatePageOutputType
+  confluenceOverwritePageOutputType
+>;
+
+export const confluenceFetchPageContentParamsSchema = z.object({
+  pageId: z.string().describe("The ID of the page to fetch content from"),
+});
+
+export type confluenceFetchPageContentParamsType = z.infer<typeof confluenceFetchPageContentParamsSchema>;
+
+export const confluenceFetchPageContentOutputSchema = z.object({
+  pageId: z.string().describe("The ID of the page"),
+  title: z.string().describe("The title of the page"),
+  content: z.string().describe("The content of the page in storage format (HTML)"),
+});
+
+export type confluenceFetchPageContentOutputType = z.infer<typeof confluenceFetchPageContentOutputSchema>;
+export type confluenceFetchPageContentFunction = ActionFunction<
+  confluenceFetchPageContentParamsType,
+  AuthParamsType,
+  confluenceFetchPageContentOutputType
 >;
 
 export const jiraCreateJiraTicketParamsSchema = z.object({

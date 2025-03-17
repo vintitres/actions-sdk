@@ -1,5 +1,5 @@
 import {
-  confluenceUpdatePageDefinition,
+  confluenceOverwritePageDefinition,
   credalCallCopilotDefinition,
   googlemapsValidateAddressDefinition,
   mathAddDefinition,
@@ -20,6 +20,7 @@ import {
   firecrawlScrapeTweetDataWithNitterDefinition,
   finnhubSymbolLookupDefinition,
   finnhubGetBasicFinancialsDefinition,
+  confluenceFetchPageContentDefinition,
 } from "../actions/autogen/templates";
 import { ActionTemplate } from "../actions/parse";
 
@@ -30,9 +31,9 @@ export const ACTION_GROUPS: ActionGroups = {
     description: "Actions for interacting with Slack",
     actions: [slackListConversationsDefinition, slackSendMessageDefinition],
   },
-  CONFLUENCE_UPDATE_PAGE: {
-    description: "Action for updating Confluence",
-    actions: [confluenceUpdatePageDefinition],
+  CONFLUENCE: {
+    description: "Action for interacting with Confluence",
+    actions: [confluenceOverwritePageDefinition, confluenceFetchPageContentDefinition],
   },
   MATH_ADD: {
     description: "Action for adding two numbers",
