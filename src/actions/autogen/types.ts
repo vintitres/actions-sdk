@@ -12,6 +12,8 @@ export const AuthParamsSchema = z.object({
   emailReplyTo: z.string().optional(),
   emailBcc: z.string().optional(),
   cloudId: z.string().optional(),
+  subdomain: z.string().optional(),
+  password: z.string().optional(),
   awsAccessKeyId: z.string().optional(),
   awsSecretAccessKey: z.string().optional(),
 });
