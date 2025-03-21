@@ -5,7 +5,6 @@ import {
   snowflakeGetRowByFieldValueOutputType,
   snowflakeGetRowByFieldValueParamsType,
 } from "../../autogen/types";
-import crypto from "crypto";
 
 const getRowByFieldValue: snowflakeGetRowByFieldValueFunction = async ({
   params,
@@ -15,25 +14,10 @@ const getRowByFieldValue: snowflakeGetRowByFieldValueFunction = async ({
   authParams: AuthParamsType;
 }): Promise<snowflakeGetRowByFieldValueOutputType> => {
   const { databaseName, tableName, fieldName, warehouse, fieldValue, user, accountName } = params;
-  const { apiKey: privateKey } = authParams;
-  if (!privateKey) {
-    throw new Error("Private key is required");
+  const { authToken } = authParams;
+  if (!authToken) {
+    throw new Error("Access Token is required");
   }
-  const buffer: Buffer = Buffer.from(privateKey);
-
-  const privateKeyObject = crypto.createPrivateKey({
-    key: buffer,
-    format: "pem",
-    passphrase: "password",
-  });
-
-  const privateKeyCorrectFormat = privateKeyObject.export({
-    format: "pem",
-    type: "pkcs8",
-  });
-
-  const privateKeyCorrectFormatString = privateKeyCorrectFormat.toString();
-
   if (!accountName || !user || !databaseName || !warehouse || !tableName || !fieldName || !fieldValue) {
     throw new Error("Account name and user are required");
   }
@@ -42,10 +26,10 @@ const getRowByFieldValue: snowflakeGetRowByFieldValueFunction = async ({
   const connection = snowflake.createConnection({
     account: accountName,
     username: user,
-    privateKey: privateKeyCorrectFormatString,
-    authenticator: "SNOWFLAKE_JWT",
-    role: "ACCOUNTADMIN", // If you have specific role requirements
-    warehouse: warehouse, // Similarly for warehouse
+    authenticator: "OAUTH",
+    token: authToken,
+    role: "CREDAL_READ",
+    warehouse: warehouse,
     database: databaseName,
     schema: "PUBLIC",
   });
