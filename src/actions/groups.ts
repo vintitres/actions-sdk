@@ -11,6 +11,7 @@ import {
   openstreetmapGetLatitudeLongitudeFromLocationDefinition,
   nwsGetForecastForLocationDefinition,
   jiraAssignJiraTicketDefinition,
+  jiraCommentJiraTicketDefinition,
   jiraCreateJiraTicketDefinition,
   googlemapsNearbysearchRestaurantsDefinition,
   firecrawlScrapeUrlDefinition,
@@ -77,7 +78,7 @@ export const ACTION_GROUPS: ActionGroups = {
   },
   JIRA_ACTIONS: {
     description: "Action for interating with Jira tickets",
-    actions: [jiraCreateJiraTicketDefinition, jiraAssignJiraTicketDefinition],
+    actions: [jiraCreateJiraTicketDefinition, jiraAssignJiraTicketDefinition, jiraCommentJiraTicketDefinition],
   },
   OPENSTREETMAP_GET_LATITUDE_LONGITUDE_FROM_LOCATION: {
     description: "Action for getting the latitude and longitude of a location",

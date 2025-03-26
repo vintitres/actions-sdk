@@ -112,6 +112,27 @@ export type confluenceFetchPageContentFunction = ActionFunction<
   confluenceFetchPageContentOutputType
 >;
 
+export const jiraCommentJiraTicketParamsSchema = z.object({
+  projectKey: z.string().describe("The key for the project you want to add it to"),
+  issueId: z.string().describe("The issue ID associated with the ticket to be commented on"),
+  comment: z.string().describe("The text to be commented on the ticket"),
+});
+
+export type jiraCommentJiraTicketParamsType = z.infer<typeof jiraCommentJiraTicketParamsSchema>;
+
+export const jiraCommentJiraTicketOutputSchema = z.object({
+  success: z.boolean().describe("Whether the comment was sent successfully"),
+  error: z.string().describe("The error that occurred if the comment was not sent successfully").optional(),
+  commentUrl: z.string().describe("The url to the created Jira comment").optional(),
+});
+
+export type jiraCommentJiraTicketOutputType = z.infer<typeof jiraCommentJiraTicketOutputSchema>;
+export type jiraCommentJiraTicketFunction = ActionFunction<
+  jiraCommentJiraTicketParamsType,
+  AuthParamsType,
+  jiraCommentJiraTicketOutputType
+>;
+
 export const jiraAssignJiraTicketParamsSchema = z.object({
   projectKey: z.string().describe("The key for the project you want to add it to"),
   assignee: z.string().describe("The assignee for the ticket, userID or email"),
