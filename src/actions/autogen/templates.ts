@@ -1521,3 +1521,30 @@ export const ashbyCreateNoteDefinition: ActionTemplate = {
   name: "createNote",
   provider: "ashby",
 };
+export const ashbyGetCandidateInfoDefinition: ActionTemplate = {
+  description: "Gets a candidate's information",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["candidateId"],
+    properties: {
+      candidateId: {
+        type: "string",
+        description: "The ID of the candidate whose information is to be retrieved",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["candidate"],
+    properties: {
+      candidate: {
+        type: "object",
+        description: "The candidate's information",
+        required: [],
+      },
+    },
+  },
+  name: "getCandidateInfo",
+  provider: "ashby",
+};

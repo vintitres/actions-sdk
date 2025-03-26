@@ -1087,3 +1087,21 @@ actions:
           note:
             type: string
             description: The note content
+    getCandidateInfo:
+      description: Gets a candidate's information
+      scopes: []
+      parameters:
+        type: object
+        required: [candidateId]
+        properties:
+          candidateId:
+            type: string
+            description: The ID of the candidate to create a note for
+      output:
+        type: object
+        required: [candidate]
+        properties:
+          candidate:
+            type: object
+            description: The candidate's information
+            required: []

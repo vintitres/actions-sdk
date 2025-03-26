@@ -65,6 +65,8 @@ import {
   googleOauthScheduleCalendarMeetingOutputSchema,
   ashbyCreateNoteParamsSchema,
   ashbyCreateNoteOutputSchema,
+  ashbyGetCandidateInfoParamsSchema,
+  ashbyGetCandidateInfoOutputSchema,
 } from "./autogen/types";
 import callCopilot from "./providers/credal/callCopilot";
 import validateAddress from "./providers/googlemaps/validateAddress";
@@ -98,6 +100,7 @@ import runSnowflakeQuery from "./providers/snowflake/runSnowflakeQuery";
 import enableUserByEmail from "./providers/looker/enableUserByEmail";
 import scheduleCalendarMeeting from "./providers/google-oauth/scheduleCalendarMeeting";
 import createNote from "./providers/ashby/createNote";
+import getCandidateInfo from "./providers/ashby/getCandidateInfo";
 
 interface ActionFunctionComponents {
   // eslint-disable-next-line
@@ -303,6 +306,11 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: createNote,
       paramsSchema: ashbyCreateNoteParamsSchema,
       outputSchema: ashbyCreateNoteOutputSchema,
+    },
+    getCandidateInfo: {
+      fn: getCandidateInfo,
+      paramsSchema: ashbyGetCandidateInfoParamsSchema,
+      outputSchema: ashbyGetCandidateInfoOutputSchema,
     },
   },
 };
