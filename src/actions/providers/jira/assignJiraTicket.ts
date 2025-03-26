@@ -32,7 +32,7 @@ const assignJiraTicket: jiraAssignJiraTicketFunction = async ({
       throw new Error("Unable to get valid assignee account ID.");
     }
 
-    const response = await axios.put(
+    await axios.put(
       `${apiUrl}issue/${params.issueId}/assignee`,
       { accountId: assigneeId },
       {
