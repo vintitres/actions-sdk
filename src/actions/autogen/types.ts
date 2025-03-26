@@ -374,6 +374,27 @@ export type zendeskGetTicketDetailsFunction = ActionFunction<
   zendeskGetTicketDetailsOutputType
 >;
 
+export const zendeskUpdateTicketStatusParamsSchema = z.object({
+  ticketId: z.string().describe("The ID of the ticket to update"),
+  subdomain: z.string().describe("The subdomain of the Zendesk account"),
+  status: z
+    .string()
+    .describe(
+      'The state of the ticket. If your account has activated custom ticket statuses, this is the ticket\'s status category. Allowed values are "new", "open", "pending", "hold", "solved", or "closed".',
+    ),
+});
+
+export type zendeskUpdateTicketStatusParamsType = z.infer<typeof zendeskUpdateTicketStatusParamsSchema>;
+
+export const zendeskUpdateTicketStatusOutputSchema = z.void();
+
+export type zendeskUpdateTicketStatusOutputType = z.infer<typeof zendeskUpdateTicketStatusOutputSchema>;
+export type zendeskUpdateTicketStatusFunction = ActionFunction<
+  zendeskUpdateTicketStatusParamsType,
+  AuthParamsType,
+  zendeskUpdateTicketStatusOutputType
+>;
+
 export const linkedinCreateShareLinkedinPostUrlParamsSchema = z.object({
   text: z.string().describe("The text for the linkedin post").optional(),
   url: z.string().describe("The url for the linkedin post").optional(),

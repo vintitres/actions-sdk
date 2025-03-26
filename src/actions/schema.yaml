@@ -177,7 +177,6 @@ actions:
             type: string
             description: The url to the created Jira Ticket
 
-
   googlemaps:
     validateAddress:
       description: Validate a Google Maps address
@@ -440,7 +439,6 @@ actions:
                 contents:
                   type: string
                   description: The contents of the web search result
-        
 
   zendesk:
     createZendeskTicket:
@@ -490,6 +488,22 @@ actions:
           ticket:
             type: object
             description: The details of the ticket
+    updateTicketStatus:
+      description: Update the status of a ticket in Zendesk
+      scopes: []
+      parameters:
+        type: object
+        required: [ticketId, subdomain, status]
+        properties:
+          ticketId:
+            type: string
+            description: The ID of the ticket to update
+          subdomain:
+            type: string
+            description: The subdomain of the Zendesk account
+          status:
+            type: string
+            description: The state of the ticket. If your account has activated custom ticket statuses, this is the ticket's status category. Allowed values are "new", "open", "pending", "hold", "solved", or "closed".
   linkedin:
     createShareLinkedinPostUrl:
       description: Create a share linkedin post link
@@ -736,7 +750,7 @@ actions:
           content:
             type: string
             description: The content of the URL
-          
+
     scrapeTweetDataWithNitter:
       description: Given A tweet URL scrape the tweet data with nitter+firecrawl
       scopes: []

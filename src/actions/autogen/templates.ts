@@ -675,6 +675,31 @@ export const zendeskGetTicketDetailsDefinition: ActionTemplate = {
   name: "getTicketDetails",
   provider: "zendesk",
 };
+export const zendeskUpdateTicketStatusDefinition: ActionTemplate = {
+  description: "Update the status of a ticket in Zendesk",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["ticketId", "subdomain", "status"],
+    properties: {
+      ticketId: {
+        type: "string",
+        description: "The ID of the ticket to update",
+      },
+      subdomain: {
+        type: "string",
+        description: "The subdomain of the Zendesk account",
+      },
+      status: {
+        type: "string",
+        description:
+          'The state of the ticket. If your account has activated custom ticket statuses, this is the ticket\'s status category. Allowed values are "new", "open", "pending", "hold", "solved", or "closed".',
+      },
+    },
+  },
+  name: "updateTicketStatus",
+  provider: "zendesk",
+};
 export const linkedinCreateShareLinkedinPostUrlDefinition: ActionTemplate = {
   description: "Create a share linkedin post link",
   scopes: [],
