@@ -504,6 +504,30 @@ actions:
           status:
             type: string
             description: The state of the ticket. If your account has activated custom ticket statuses, this is the ticket's status category. Allowed values are "new", "open", "pending", "hold", "solved", or "closed".
+    addCommentToTicket:
+      description: Add a comment to a ticket in Zendesk
+      scopes: []
+      parameters:
+        type: object
+        required: [ticketId, subdomain, comment]
+        properties:
+          ticketId:
+            type: string
+            description: The ID of the ticket to update
+          subdomain:
+            type: string
+            description: The subdomain of the Zendesk account
+          comment:
+            type: object
+            description: The comment to add to the ticket
+            required: [body]
+            properties:
+              body:
+                type: string
+                description: The body of the comment
+              public:
+                type: boolean
+                description: Whether the comment should be public
   linkedin:
     createShareLinkedinPostUrl:
       description: Create a share linkedin post link

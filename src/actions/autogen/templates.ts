@@ -700,6 +700,41 @@ export const zendeskUpdateTicketStatusDefinition: ActionTemplate = {
   name: "updateTicketStatus",
   provider: "zendesk",
 };
+export const zendeskAddCommentToTicketDefinition: ActionTemplate = {
+  description: "Add a comment to a ticket in Zendesk",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["ticketId", "subdomain", "comment"],
+    properties: {
+      ticketId: {
+        type: "string",
+        description: "The ID of the ticket to update",
+      },
+      subdomain: {
+        type: "string",
+        description: "The subdomain of the Zendesk account",
+      },
+      comment: {
+        type: "object",
+        description: "The comment to add to the ticket",
+        required: ["body"],
+        properties: {
+          body: {
+            type: "string",
+            description: "The body of the comment",
+          },
+          public: {
+            type: "boolean",
+            description: "Whether the comment should be public",
+          },
+        },
+      },
+    },
+  },
+  name: "addCommentToTicket",
+  provider: "zendesk",
+};
 export const linkedinCreateShareLinkedinPostUrlDefinition: ActionTemplate = {
   description: "Create a share linkedin post link",
   scopes: [],

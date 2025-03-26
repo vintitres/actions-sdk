@@ -395,6 +395,28 @@ export type zendeskUpdateTicketStatusFunction = ActionFunction<
   zendeskUpdateTicketStatusOutputType
 >;
 
+export const zendeskAddCommentToTicketParamsSchema = z.object({
+  ticketId: z.string().describe("The ID of the ticket to update"),
+  subdomain: z.string().describe("The subdomain of the Zendesk account"),
+  comment: z
+    .object({
+      body: z.string().describe("The body of the comment"),
+      public: z.boolean().describe("Whether the comment should be public").optional(),
+    })
+    .describe("The comment to add to the ticket"),
+});
+
+export type zendeskAddCommentToTicketParamsType = z.infer<typeof zendeskAddCommentToTicketParamsSchema>;
+
+export const zendeskAddCommentToTicketOutputSchema = z.void();
+
+export type zendeskAddCommentToTicketOutputType = z.infer<typeof zendeskAddCommentToTicketOutputSchema>;
+export type zendeskAddCommentToTicketFunction = ActionFunction<
+  zendeskAddCommentToTicketParamsType,
+  AuthParamsType,
+  zendeskAddCommentToTicketOutputType
+>;
+
 export const linkedinCreateShareLinkedinPostUrlParamsSchema = z.object({
   text: z.string().describe("The text for the linkedin post").optional(),
   url: z.string().describe("The url for the linkedin post").optional(),
