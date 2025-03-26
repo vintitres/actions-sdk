@@ -59,6 +59,55 @@ export const slackListConversationsDefinition: ActionTemplate = {
   name: "listConversations",
   provider: "slack",
 };
+export const slackGetChannelMessagesDefinition: ActionTemplate = {
+  description: "Gets messages from a Slack channel",
+  scopes: ["channels:history"],
+  parameters: {
+    type: "object",
+    required: ["channelName", "oldest"],
+    properties: {
+      channelName: {
+        type: "string",
+        description: "Name of the channel to summarize",
+      },
+      oldest: {
+        type: "string",
+        description: "Only messages after this Unix timestamp will be included in results",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["messages"],
+    properties: {
+      messages: {
+        type: "array",
+        description: "The messages in the channel",
+        items: {
+          type: "object",
+          description: "A message in the channel",
+          required: ["user", "text", "ts"],
+          properties: {
+            user: {
+              type: "string",
+              description: "The user who sent the message",
+            },
+            text: {
+              type: "string",
+              description: "The text of the message",
+            },
+            ts: {
+              type: "string",
+              description: "The timestamp of the message",
+            },
+          },
+        },
+      },
+    },
+  },
+  name: "getChannelMessages",
+  provider: "slack",
+};
 export const mathAddDefinition: ActionTemplate = {
   description: "Adds two numbers together",
   scopes: [],

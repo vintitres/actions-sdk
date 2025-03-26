@@ -64,6 +64,34 @@ export type slackListConversationsFunction = ActionFunction<
   slackListConversationsOutputType
 >;
 
+export const slackGetChannelMessagesParamsSchema = z.object({
+  channelName: z.string().describe("Name of the channel to summarize"),
+  oldest: z.string().describe("Only messages after this Unix timestamp will be included in results"),
+});
+
+export type slackGetChannelMessagesParamsType = z.infer<typeof slackGetChannelMessagesParamsSchema>;
+
+export const slackGetChannelMessagesOutputSchema = z.object({
+  messages: z
+    .array(
+      z
+        .object({
+          user: z.string().describe("The user who sent the message"),
+          text: z.string().describe("The text of the message"),
+          ts: z.string().describe("The timestamp of the message"),
+        })
+        .describe("A message in the channel"),
+    )
+    .describe("The messages in the channel"),
+});
+
+export type slackGetChannelMessagesOutputType = z.infer<typeof slackGetChannelMessagesOutputSchema>;
+export type slackGetChannelMessagesFunction = ActionFunction<
+  slackGetChannelMessagesParamsType,
+  AuthParamsType,
+  slackGetChannelMessagesOutputType
+>;
+
 export const mathAddParamsSchema = z.object({
   a: z.number().describe("The first number to add"),
   b: z.number().describe("The second number to add"),
