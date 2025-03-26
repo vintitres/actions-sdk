@@ -63,6 +63,8 @@ import {
   lookerEnableUserByEmailOutputSchema,
   googleOauthScheduleCalendarMeetingParamsSchema,
   googleOauthScheduleCalendarMeetingOutputSchema,
+  ashbyCreateNoteParamsSchema,
+  ashbyCreateNoteOutputSchema,
 } from "./autogen/types";
 import callCopilot from "./providers/credal/callCopilot";
 import validateAddress from "./providers/googlemaps/validateAddress";
@@ -95,6 +97,7 @@ import confluenceFetchPageContent from "./providers/confluence/fetchPageContent"
 import runSnowflakeQuery from "./providers/snowflake/runSnowflakeQuery";
 import enableUserByEmail from "./providers/looker/enableUserByEmail";
 import scheduleCalendarMeeting from "./providers/google-oauth/scheduleCalendarMeeting";
+import createNote from "./providers/ashby/createNote";
 
 interface ActionFunctionComponents {
   // eslint-disable-next-line
@@ -293,6 +296,13 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: enableUserByEmail,
       paramsSchema: lookerEnableUserByEmailParamsSchema,
       outputSchema: lookerEnableUserByEmailOutputSchema,
+    },
+  },
+  ashby: {
+    createNote: {
+      fn: createNote,
+      paramsSchema: ashbyCreateNoteParamsSchema,
+      outputSchema: ashbyCreateNoteOutputSchema,
     },
   },
 };

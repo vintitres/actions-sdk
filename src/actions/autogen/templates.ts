@@ -1501,3 +1501,23 @@ export const lookerEnableUserByEmailDefinition: ActionTemplate = {
   name: "enableUserByEmail",
   provider: "looker",
 };
+export const ashbyCreateNoteDefinition: ActionTemplate = {
+  description: "Creates a note on a candidate",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["candidateId", "note"],
+    properties: {
+      candidateId: {
+        type: "string",
+        description: "The ID of the candidate to create a note for",
+      },
+      note: {
+        type: "string",
+        description: "The note content",
+      },
+    },
+  },
+  name: "createNote",
+  provider: "ashby",
+};

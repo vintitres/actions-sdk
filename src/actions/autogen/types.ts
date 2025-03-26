@@ -846,3 +846,19 @@ export type lookerEnableUserByEmailFunction = ActionFunction<
   AuthParamsType,
   lookerEnableUserByEmailOutputType
 >;
+
+export const ashbyCreateNoteParamsSchema = z.object({
+  candidateId: z.string().describe("The ID of the candidate to create a note for"),
+  note: z.string().describe("The note content"),
+});
+
+export type ashbyCreateNoteParamsType = z.infer<typeof ashbyCreateNoteParamsSchema>;
+
+export const ashbyCreateNoteOutputSchema = z.void();
+
+export type ashbyCreateNoteOutputType = z.infer<typeof ashbyCreateNoteOutputSchema>;
+export type ashbyCreateNoteFunction = ActionFunction<
+  ashbyCreateNoteParamsType,
+  AuthParamsType,
+  ashbyCreateNoteOutputType
+>;
