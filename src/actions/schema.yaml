@@ -469,7 +469,27 @@ actions:
           ticketUrl:
             type: string
             description: The URL of the ticket created
-
+    getTicketDetails:
+      description: Get details of a ticket in Zendesk
+      scopes: []
+      parameters:
+        type: object
+        required: [ticketId, subdomain]
+        properties:
+          ticketId:
+            type: string
+            description: The ID of the ticket
+          subdomain:
+            type: string
+            description: The subdomain of the Zendesk account
+      output:
+        type: object
+        required:
+          - ticket
+        properties:
+          ticket:
+            type: object
+            description: The details of the ticket
   linkedin:
     createShareLinkedinPostUrl:
       description: Create a share linkedin post link

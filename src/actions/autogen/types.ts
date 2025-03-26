@@ -356,6 +356,24 @@ export type zendeskCreateZendeskTicketFunction = ActionFunction<
   zendeskCreateZendeskTicketOutputType
 >;
 
+export const zendeskGetTicketDetailsParamsSchema = z.object({
+  ticketId: z.string().describe("The ID of the ticket"),
+  subdomain: z.string().describe("The subdomain of the Zendesk account"),
+});
+
+export type zendeskGetTicketDetailsParamsType = z.infer<typeof zendeskGetTicketDetailsParamsSchema>;
+
+export const zendeskGetTicketDetailsOutputSchema = z.object({
+  ticket: z.object({}).catchall(z.any()).describe("The details of the ticket"),
+});
+
+export type zendeskGetTicketDetailsOutputType = z.infer<typeof zendeskGetTicketDetailsOutputSchema>;
+export type zendeskGetTicketDetailsFunction = ActionFunction<
+  zendeskGetTicketDetailsParamsType,
+  AuthParamsType,
+  zendeskGetTicketDetailsOutputType
+>;
+
 export const linkedinCreateShareLinkedinPostUrlParamsSchema = z.object({
   text: z.string().describe("The text for the linkedin post").optional(),
   url: z.string().describe("The url for the linkedin post").optional(),

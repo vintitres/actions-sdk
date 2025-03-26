@@ -21,6 +21,8 @@ import {
   snowflakeGetRowByFieldValueParamsSchema,
   zendeskCreateZendeskTicketOutputSchema,
   zendeskCreateZendeskTicketParamsSchema,
+  zendeskGetTicketDetailsOutputSchema,
+  zendeskGetTicketDetailsParamsSchema,
   jiraAssignJiraTicketParamsSchema,
   jiraAssignJiraTicketOutputSchema,
   jiraCreateJiraTicketParamsSchema,
@@ -62,6 +64,7 @@ import listConversations from "./providers/slack/listConversations";
 import sendMessage from "./providers/slack/sendMessage";
 import getRowByFieldValue from "./providers/snowflake/getRowByFieldValue";
 import createZendeskTicket from "./providers/zendesk/createZendeskTicket";
+import getZendeskTicketDetails from "./providers/zendesk/getTicketDetails";
 import assignJiraTicket from "./providers/jira/assignJiraTicket";
 import createJiraTicket from "./providers/jira/createJiraTicket";
 import getLatitudeLongitudeFromLocation from "./providers/openstreetmap/getLatitudeLongitudeFromLocation";
@@ -144,6 +147,11 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: createZendeskTicket,
       paramsSchema: zendeskCreateZendeskTicketParamsSchema,
       outputSchema: zendeskCreateZendeskTicketOutputSchema,
+    },
+    getTicketDetails: {
+      fn: getZendeskTicketDetails,
+      paramsSchema: zendeskGetTicketDetailsParamsSchema,
+      outputSchema: zendeskGetTicketDetailsOutputSchema,
     },
   },
   mongo: {

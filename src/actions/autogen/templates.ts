@@ -645,6 +645,36 @@ export const zendeskCreateZendeskTicketDefinition: ActionTemplate = {
   name: "createZendeskTicket",
   provider: "zendesk",
 };
+export const zendeskGetTicketDetailsDefinition: ActionTemplate = {
+  description: "Get details of a ticket in Zendesk",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["ticketId", "subdomain"],
+    properties: {
+      ticketId: {
+        type: "string",
+        description: "The ID of the ticket",
+      },
+      subdomain: {
+        type: "string",
+        description: "The subdomain of the Zendesk account",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["ticket"],
+    properties: {
+      ticket: {
+        type: "object",
+        description: "The details of the ticket",
+      },
+    },
+  },
+  name: "getTicketDetails",
+  provider: "zendesk",
+};
 export const linkedinCreateShareLinkedinPostUrlDefinition: ActionTemplate = {
   description: "Create a share linkedin post link",
   scopes: [],
