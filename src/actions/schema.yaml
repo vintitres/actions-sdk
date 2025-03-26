@@ -140,8 +140,8 @@ actions:
             type: string
             description: The url to the created Jira comment
     assignJiraTicket:
-      description: Assigns/Re-assignes a Jira ticket to a specified user 
-      scopes: 
+      description: Assigns/Re-assignes a Jira ticket to a specified user
+      scopes:
         - write:jira-work
         - read:jira-user
       parameters:
@@ -558,6 +558,22 @@ actions:
               public:
                 type: boolean
                 description: Whether the comment should be public
+    assignTicket:
+      description: Assign a ticket in Zendesk to a specific user
+      scopes: []
+      parameters:
+        type: object
+        required: [ticketId, subdomain, assigneeEmail]
+        properties:
+          ticketId:
+            type: string
+            description: The ID of the ticket to update
+          subdomain:
+            type: string
+            description: The subdomain of the Zendesk account
+          assigneeEmail:
+            type: string
+            description: The email address of the agent to assign the ticket to
   linkedin:
     createShareLinkedinPostUrl:
       description: Create a share linkedin post link

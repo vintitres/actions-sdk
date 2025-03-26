@@ -777,6 +777,30 @@ export const zendeskAddCommentToTicketDefinition: ActionTemplate = {
   name: "addCommentToTicket",
   provider: "zendesk",
 };
+export const zendeskAssignTicketDefinition: ActionTemplate = {
+  description: "Assign a ticket in Zendesk to a specific user",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["ticketId", "subdomain", "assigneeEmail"],
+    properties: {
+      ticketId: {
+        type: "string",
+        description: "The ID of the ticket to update",
+      },
+      subdomain: {
+        type: "string",
+        description: "The subdomain of the Zendesk account",
+      },
+      assigneeEmail: {
+        type: "string",
+        description: "The email address of the agent to assign the ticket to",
+      },
+    },
+  },
+  name: "assignTicket",
+  provider: "zendesk",
+};
 export const linkedinCreateShareLinkedinPostUrlDefinition: ActionTemplate = {
   description: "Create a share linkedin post link",
   scopes: [],

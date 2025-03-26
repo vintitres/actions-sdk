@@ -29,6 +29,8 @@ import {
   zendeskUpdateTicketStatusParamsSchema,
   zendeskAddCommentToTicketOutputSchema,
   zendeskAddCommentToTicketParamsSchema,
+  zendeskAssignTicketOutputSchema,
+  zendeskAssignTicketParamsSchema,
   jiraCommentJiraTicketParamsSchema,
   jiraCommentJiraTicketOutputSchema,
   jiraCreateJiraTicketParamsSchema,
@@ -74,6 +76,7 @@ import getZendeskTicketDetails from "./providers/zendesk/getTicketDetails";
 import assignJiraTicket from "./providers/jira/assignJiraTicket";
 import updateTicketStatus from "./providers/zendesk/updateTicketStatus";
 import addCommentToTicket from "./providers/zendesk/addCommentToTicket";
+import assignTicket from "./providers/zendesk/assignTicket";
 import commentJiraTicket from "./providers/jira/commentJiraTicket";
 import createJiraTicket from "./providers/jira/createJiraTicket";
 import getLatitudeLongitudeFromLocation from "./providers/openstreetmap/getLatitudeLongitudeFromLocation";
@@ -171,6 +174,11 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: addCommentToTicket,
       paramsSchema: zendeskAddCommentToTicketParamsSchema,
       outputSchema: zendeskAddCommentToTicketOutputSchema,
+    },
+    assignTicket: {
+      fn: assignTicket,
+      paramsSchema: zendeskAssignTicketParamsSchema,
+      outputSchema: zendeskAssignTicketOutputSchema,
     },
   },
   mongo: {

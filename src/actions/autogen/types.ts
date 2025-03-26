@@ -438,6 +438,23 @@ export type zendeskAddCommentToTicketFunction = ActionFunction<
   zendeskAddCommentToTicketOutputType
 >;
 
+export const zendeskAssignTicketParamsSchema = z.object({
+  ticketId: z.string().describe("The ID of the ticket to update"),
+  subdomain: z.string().describe("The subdomain of the Zendesk account"),
+  assigneeEmail: z.string().describe("The email address of the agent to assign the ticket to"),
+});
+
+export type zendeskAssignTicketParamsType = z.infer<typeof zendeskAssignTicketParamsSchema>;
+
+export const zendeskAssignTicketOutputSchema = z.void();
+
+export type zendeskAssignTicketOutputType = z.infer<typeof zendeskAssignTicketOutputSchema>;
+export type zendeskAssignTicketFunction = ActionFunction<
+  zendeskAssignTicketParamsType,
+  AuthParamsType,
+  zendeskAssignTicketOutputType
+>;
+
 export const linkedinCreateShareLinkedinPostUrlParamsSchema = z.object({
   text: z.string().describe("The text for the linkedin post").optional(),
   url: z.string().describe("The url for the linkedin post").optional(),
