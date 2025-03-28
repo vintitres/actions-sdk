@@ -26,6 +26,7 @@ import {
   snowflakeRunSnowflakeQueryDefinition,
   lookerEnableUserByEmailDefinition,
   googleOauthScheduleCalendarMeetingDefinition,
+  githubCreateOrUpdateFileDefinition,
 } from "../actions/autogen/templates";
 import { ActionTemplate } from "../actions/parse";
 
@@ -107,5 +108,9 @@ export const ACTION_GROUPS: ActionGroups = {
   LOOKER: {
     description: "Actions for interacting with Looker",
     actions: [lookerEnableUserByEmailDefinition],
+  },
+  GITHUB: {
+    description: "Actions for interacting with GitHub",
+    actions: [githubCreateOrUpdateFileDefinition],
   },
 };
