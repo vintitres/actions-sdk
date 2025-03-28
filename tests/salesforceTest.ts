@@ -1,9 +1,11 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import fs from 'fs';
 
-const CLIENT_ID = process.env.SALESFORCE_CONSUMER_KEY!;
-console.log(process.env.SALESFORCE_PRIVATE_KEY);
-const PRIVATE_KEY = process.env.SALESFORCE_PRIVATE_KEY!.replace(/\\n/g, '\n');
+require('dotenv').config();
+
+const PRIVATE_KEY = fs.readFileSync(process.env.SALESFORCE_PRIVATE_KEY_PATH!, 'utf8');
+const CLIENT_ID = process.env.SALESFORCE_CONSUMER_KEY; // The client ID of the connected app
 const USERNAME = 'jaqb-zuqc@force.com';  // The Salesforce username associated with the connected app
 const LOGIN_URL = 'https://login.salesforce.com'; // Use the sandbox URL if you're working with a sandbox: https://test.salesforce.com
 
@@ -19,7 +21,6 @@ async function authenticateWithJWT(): Promise<string> {
     };
 
     try {
-        console.log(PRIVATE_KEY);
         // Sign the JWT with the private key
         const signedJWT = jwt.sign(payload, PRIVATE_KEY, { algorithm: 'RS256' });
 
