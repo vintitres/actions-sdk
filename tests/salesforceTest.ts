@@ -2,9 +2,10 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
 const CLIENT_ID = process.env.SALESFORCE_CONSUMER_KEY!;
+console.log(process.env.SALESFORCE_PRIVATE_KEY);
 const PRIVATE_KEY = process.env.SALESFORCE_PRIVATE_KEY!.replace(/\\n/g, '\n');
 const USERNAME = 'jaqb-zuqc@force.com';  // The Salesforce username associated with the connected app
-const LOGIN_URL = 'https://test.salesforce.com'; // Use the sandbox URL if you're working with a sandbox: https://test.salesforce.com
+const LOGIN_URL = 'https://login.salesforce.com'; // Use the sandbox URL if you're working with a sandbox: https://test.salesforce.com
 
 const API_URL = 'https://power-speed-8849.lightning.force.com/services/data/v56.0/sobjects';
 
