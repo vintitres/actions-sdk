@@ -4,8 +4,8 @@ import fs from 'fs';
 
 require('dotenv').config();
 
-const PRIVATE_KEY = fs.readFileSync(process.env.SALESFORCE_PRIVATE_KEY_PATH!, 'utf8');
-const CLIENT_ID = process.env.SALESFORCE_CONSUMER_KEY; // The client ID of the connected app
+const PRIVATE_KEY = Buffer.from(process.env.SALESFORCE_PRIVATE_KEY_BASE64!, 'base64').toString('utf-8'); // The private key of the connected app, base64 encoded
+const CLIENT_ID = process.env.SALESFORCE_CONSUMER_KEY!; // The client ID of the connected app
 const USERNAME = 'jaqb-zuqc@force.com';  // The Salesforce username associated with the connected app
 const LOGIN_URL = 'https://login.salesforce.com'; // Use the sandbox URL if you're working with a sandbox: https://test.salesforce.com
 
@@ -32,10 +32,7 @@ async function authenticateWithJWT(): Promise<string> {
             }
         });
 
-        console.log('JWT authentication successful:', response.data);
-
-        const accessToken = response.data.access_token;
-        return accessToken;
+        return response.data.access_token;
     } catch (error) {
         console.error('Error during JWT authentication:', error);
         throw error;
@@ -103,25 +100,3 @@ const leadUpdatedData = {
 };
 
 updateLead(leadRecordId, leadUpdatedData);
-
-
-
-// import fs from 'fs';
-// require('dotenv').config();
-
-// const PRIVATE_KEY_ = fs.readFileSync('../actionsplay/private_pkcs8.key', 'utf8'); // Use PKCS#8 key
-
-// console.log('Private key:', PRIVATE_KEY);
-// console.log('Private key:', PRIVATE_KEY_);
-
-// const payload = {
-//     iss: 'YOUR_CLIENT_ID',
-//     sub: 'YOUR_SALESFORCE_USERNAME',
-//     aud: 'https://login.salesforce.com/services/oauth2/token',
-//     exp: Math.floor(Date.now() / 1000) + (60 * 5), // Expires in 5 minutes
-// };
-
-// const signedJWT = jwt.sign(payload, PRIVATE_KEY_, { algorithm: 'RS256' });
-
-// console.log('Signed JWT:', signedJWT);
-
