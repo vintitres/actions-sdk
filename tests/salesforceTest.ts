@@ -9,7 +9,7 @@ const CLIENT_ID = process.env.SALESFORCE_CONSUMER_KEY; // The client ID of the c
 const USERNAME = 'jaqb-zuqc@force.com';  // The Salesforce username associated with the connected app
 const LOGIN_URL = 'https://login.salesforce.com'; // Use the sandbox URL if you're working with a sandbox: https://test.salesforce.com
 
-const API_URL = 'https://power-speed-8849.lightning.force.com/services/data/v56.0/sobjects';
+const API_URL = 'https://power-speed-8849.my.salesforce.com/services/data/v56.0/sobjects';
 
 // Helper function for JWT Authentication
 async function authenticateWithJWT(): Promise<string> {
@@ -31,6 +31,8 @@ async function authenticateWithJWT(): Promise<string> {
                 assertion: signedJWT,
             }
         });
+
+        console.log('JWT authentication successful:', response.data);
 
         const accessToken = response.data.access_token;
         return accessToken;
@@ -83,14 +85,15 @@ async function updateLead(recordId: string, updatedData: object): Promise<void> 
     }
 }
 
+
 // Example of usage for Opportunity
-const opportunityRecordId = 'your-opportunity-record-id';
+const opportunityRecordId = '006fn0000004nerAAA';
 const opportunityUpdatedData = {
     StageName: 'Closed Won',
     Amount: 10000,
 };
 
-// updateOpportunity(opportunityRecordId, opportunityUpdatedData);
+updateOpportunity(opportunityRecordId, opportunityUpdatedData);
 
 // Example of usage for Lead
 const leadRecordId = '00Qfn0000004na7EAA';
