@@ -1660,3 +1660,45 @@ export const githubCreateOrUpdateFileDefinition: ActionTemplate = {
   name: "createOrUpdateFile",
   provider: "github",
 };
+export const githubCreateBranchDefinition: ActionTemplate = {
+  description: "Create a new branch in a GitHub repository",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["repositoryOwner", "repositoryName", "branchName", "baseRefOrHash"],
+    properties: {
+      repositoryOwner: {
+        type: "string",
+        description: "The owner of the repository",
+      },
+      repositoryName: {
+        type: "string",
+        description: "The name of the repository",
+      },
+      branchName: {
+        type: "string",
+        description: "The name of the new branch to create",
+      },
+      baseRefOrHash: {
+        type: "string",
+        description: "The ref or hash of the base commit to create the new branch from",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the branch was created successfully",
+      },
+      error: {
+        type: "string",
+        description: "The error that occurred if the branch was not created successfully",
+      },
+    },
+  },
+  name: "createBranch",
+  provider: "github",
+};

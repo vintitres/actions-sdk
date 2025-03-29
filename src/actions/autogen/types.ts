@@ -933,3 +933,24 @@ export type githubCreateOrUpdateFileFunction = ActionFunction<
   AuthParamsType,
   githubCreateOrUpdateFileOutputType
 >;
+
+export const githubCreateBranchParamsSchema = z.object({
+  repositoryOwner: z.string().describe("The owner of the repository"),
+  repositoryName: z.string().describe("The name of the repository"),
+  branchName: z.string().describe("The name of the new branch to create"),
+  baseRefOrHash: z.string().describe("The ref or hash of the base commit to create the new branch from"),
+});
+
+export type githubCreateBranchParamsType = z.infer<typeof githubCreateBranchParamsSchema>;
+
+export const githubCreateBranchOutputSchema = z.object({
+  success: z.boolean().describe("Whether the branch was created successfully"),
+  error: z.string().describe("The error that occurred if the branch was not created successfully").optional(),
+});
+
+export type githubCreateBranchOutputType = z.infer<typeof githubCreateBranchOutputSchema>;
+export type githubCreateBranchFunction = ActionFunction<
+  githubCreateBranchParamsType,
+  AuthParamsType,
+  githubCreateBranchOutputType
+>;
