@@ -62,21 +62,24 @@ async function updateOpportunity(recordId: string, updatedData: object): Promise
 
 // Function to update Lead
 async function updateLead(recordId: string, updatedData: object): Promise<void> {
+    var accessToken: string;
     try {
-        const accessToken = await authenticateWithJWT();
-
-        const updateUrl = `${API_URL}/Lead/${recordId}`;
-
+        accessToken = await authenticateWithJWT();
+    } catch (error) {
+        console.error('Error during JWT authentication:', error instanceof Error ? error.message : "Unknown error");
+        return;
+    }
+    const updateUrl = `${API_URL}/Lead/${recordId}`;
+    try {
         const response = await axios.patch(updateUrl, updatedData, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
             }
         });
-
         console.log('Lead updated successfully:', response.data);
     } catch (error) {
-        console.error('Error updating Lead:', error);
+        console.error('Error updating Lead:', error instanceof Error ? error.message : "Unknown error");
     }
 }
 
