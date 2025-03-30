@@ -1579,7 +1579,7 @@ export const ashbyGetCandidateInfoDefinition: ActionTemplate = {
     properties: {
       candidateId: {
         type: "string",
-        description: "The ID of the candidate whose information is to be retrieved",
+        description: "The ID of the candidate to create a note for",
       },
     },
   },
@@ -1596,4 +1596,191 @@ export const ashbyGetCandidateInfoDefinition: ActionTemplate = {
   },
   name: "getCandidateInfo",
   provider: "ashby",
+};
+export const salesforceUpdateRecordDefinition: ActionTemplate = {
+  description: "Update a record in Salesforce",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["objectType", "recordId", "fieldsToUpdate"],
+    properties: {
+      objectType: {
+        type: "string",
+        description: "The Salesforce object type to update (e.g., Lead, Account, Contact)",
+      },
+      recordId: {
+        type: "string",
+        description: "The ID of the record to update",
+      },
+      fieldsToUpdate: {
+        type: "object",
+        description: "The fields to update on the record",
+        additionalProperties: {
+          type: "string",
+        },
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the record was successfully updated",
+      },
+      error: {
+        type: "string",
+        description: "The error that occurred if the record was not successfully updated",
+      },
+    },
+  },
+  name: "updateRecord",
+  provider: "salesforce",
+};
+export const salesforceCreateCaseDefinition: ActionTemplate = {
+  description: "Create a case or support ticket in Salesforce",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["subject", "description", "priority", "origin"],
+    properties: {
+      subject: {
+        type: "string",
+        description: "The subject of the case",
+      },
+      description: {
+        type: "string",
+        description: "The detailed description of the case",
+      },
+      priority: {
+        type: "string",
+        description: "The priority of the case (e.g., High, Medium, Low)",
+      },
+      origin: {
+        type: "string",
+        description: "The origin of the case (e.g., Phone, Email, Web)",
+      },
+      customFields: {
+        type: "object",
+        description: "Additional custom fields to set on the case",
+        additionalProperties: {
+          type: "string",
+        },
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the case was successfully created",
+      },
+      caseId: {
+        type: "string",
+        description: "The ID of the created case",
+      },
+      error: {
+        type: "string",
+        description: "The error that occurred if the case was not successfully created",
+      },
+    },
+  },
+  name: "createCase",
+  provider: "salesforce",
+};
+export const salesforceGenerateSalesReportDefinition: ActionTemplate = {
+  description: "Generate a sales report from Salesforce",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["startDate", "endDate"],
+    properties: {
+      startDate: {
+        type: "string",
+        description: "The start date for the sales report in ISO 8601 format (e.g., 2025-01-01).",
+      },
+      endDate: {
+        type: "string",
+        description: "The end date for the sales report in ISO 8601 format (e.g., 2025-01-31).",
+      },
+      filters: {
+        type: "object",
+        description: "Additional filters for the sales report (e.g., by region, product).",
+        additionalProperties: {
+          type: "string",
+        },
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the sales report was successfully generated.",
+      },
+      reportData: {
+        type: "array",
+        description: "The data of the sales report.",
+        items: {
+          type: "object",
+          description: "A row in the sales report.",
+          additionalProperties: {
+            type: "string",
+          },
+        },
+      },
+      error: {
+        type: "string",
+        description: "The error that occurred if the sales report was not successfully generated.",
+      },
+    },
+  },
+  name: "generateSalesReport",
+  provider: "salesforce",
+};
+export const salesforceGetRecordDefinition: ActionTemplate = {
+  description: "Retrieve a record from Salesforce",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["objectType", "recordId"],
+    properties: {
+      objectType: {
+        type: "string",
+        description: "The Salesforce object type to retrieve (e.g., Lead, Account, Contact)",
+      },
+      recordId: {
+        type: "string",
+        description: "The ID of the record to retrieve",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the record was successfully retrieved",
+      },
+      record: {
+        type: "object",
+        description: "The retrieved record data",
+        additionalProperties: {
+          type: "string",
+        },
+      },
+      error: {
+        type: "string",
+        description: "The error that occurred if the record was not successfully retrieved",
+      },
+    },
+  },
+  name: "getRecord",
+  provider: "salesforce",
 };

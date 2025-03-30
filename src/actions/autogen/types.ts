@@ -907,3 +907,93 @@ export type ashbyGetCandidateInfoFunction = ActionFunction<
   AuthParamsType,
   ashbyGetCandidateInfoOutputType
 >;
+
+export const salesforceUpdateRecordParamsSchema = z.object({
+  objectType: z.string().describe("The Salesforce object type to update (e.g., Lead, Account, Contact)"),
+  recordId: z.string().describe("The ID of the record to update"),
+  fieldsToUpdate: z.record(z.string()).describe("The fields to update on the record"),
+});
+
+export type salesforceUpdateRecordParamsType = z.infer<typeof salesforceUpdateRecordParamsSchema>;
+
+export const salesforceUpdateRecordOutputSchema = z.object({
+  success: z.boolean().describe("Whether the record was successfully updated"),
+  error: z.string().describe("The error that occurred if the record was not successfully updated").optional(),
+});
+
+export type salesforceUpdateRecordOutputType = z.infer<typeof salesforceUpdateRecordOutputSchema>;
+export type salesforceUpdateRecordFunction = ActionFunction<
+  salesforceUpdateRecordParamsType,
+  AuthParamsType,
+  salesforceUpdateRecordOutputType
+>;
+
+export const salesforceCreateCaseParamsSchema = z.object({
+  subject: z.string().describe("The subject of the case"),
+  description: z.string().describe("The detailed description of the case"),
+  priority: z.string().describe("The priority of the case (e.g., High, Medium, Low)"),
+  origin: z.string().describe("The origin of the case (e.g., Phone, Email, Web)"),
+  customFields: z.record(z.string()).describe("Additional custom fields to set on the case").optional(),
+});
+
+export type salesforceCreateCaseParamsType = z.infer<typeof salesforceCreateCaseParamsSchema>;
+
+export const salesforceCreateCaseOutputSchema = z.object({
+  success: z.boolean().describe("Whether the case was successfully created"),
+  caseId: z.string().describe("The ID of the created case").optional(),
+  error: z.string().describe("The error that occurred if the case was not successfully created").optional(),
+});
+
+export type salesforceCreateCaseOutputType = z.infer<typeof salesforceCreateCaseOutputSchema>;
+export type salesforceCreateCaseFunction = ActionFunction<
+  salesforceCreateCaseParamsType,
+  AuthParamsType,
+  salesforceCreateCaseOutputType
+>;
+
+export const salesforceGenerateSalesReportParamsSchema = z.object({
+  startDate: z.string().describe("The start date for the sales report in ISO 8601 format (e.g., 2025-01-01)."),
+  endDate: z.string().describe("The end date for the sales report in ISO 8601 format (e.g., 2025-01-31)."),
+  filters: z
+    .record(z.string())
+    .describe("Additional filters for the sales report (e.g., by region, product).")
+    .optional(),
+});
+
+export type salesforceGenerateSalesReportParamsType = z.infer<typeof salesforceGenerateSalesReportParamsSchema>;
+
+export const salesforceGenerateSalesReportOutputSchema = z.object({
+  success: z.boolean().describe("Whether the sales report was successfully generated."),
+  reportData: z
+    .array(z.record(z.string()).describe("A row in the sales report."))
+    .describe("The data of the sales report.")
+    .optional(),
+  error: z.string().describe("The error that occurred if the sales report was not successfully generated.").optional(),
+});
+
+export type salesforceGenerateSalesReportOutputType = z.infer<typeof salesforceGenerateSalesReportOutputSchema>;
+export type salesforceGenerateSalesReportFunction = ActionFunction<
+  salesforceGenerateSalesReportParamsType,
+  AuthParamsType,
+  salesforceGenerateSalesReportOutputType
+>;
+
+export const salesforceGetRecordParamsSchema = z.object({
+  objectType: z.string().describe("The Salesforce object type to retrieve (e.g., Lead, Account, Contact)"),
+  recordId: z.string().describe("The ID of the record to retrieve"),
+});
+
+export type salesforceGetRecordParamsType = z.infer<typeof salesforceGetRecordParamsSchema>;
+
+export const salesforceGetRecordOutputSchema = z.object({
+  success: z.boolean().describe("Whether the record was successfully retrieved"),
+  record: z.record(z.string()).describe("The retrieved record data").optional(),
+  error: z.string().describe("The error that occurred if the record was not successfully retrieved").optional(),
+});
+
+export type salesforceGetRecordOutputType = z.infer<typeof salesforceGetRecordOutputSchema>;
+export type salesforceGetRecordFunction = ActionFunction<
+  salesforceGetRecordParamsType,
+  AuthParamsType,
+  salesforceGetRecordOutputType
+>;

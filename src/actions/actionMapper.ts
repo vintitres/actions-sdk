@@ -69,6 +69,14 @@ import {
   ashbyCreateNoteOutputSchema,
   ashbyGetCandidateInfoParamsSchema,
   ashbyGetCandidateInfoOutputSchema,
+  salesforceUpdateRecordParamsSchema,
+  salesforceUpdateRecordOutputSchema,
+  salesforceCreateCaseParamsSchema,
+  salesforceCreateCaseOutputSchema,
+  salesforceGenerateSalesReportParamsSchema,
+  salesforceGenerateSalesReportOutputSchema,
+  salesforceGetRecordParamsSchema,
+  salesforceGetRecordOutputSchema,
 } from "./autogen/types";
 import callCopilot from "./providers/credal/callCopilot";
 import validateAddress from "./providers/googlemaps/validateAddress";
@@ -104,6 +112,10 @@ import enableUserByEmail from "./providers/looker/enableUserByEmail";
 import scheduleCalendarMeeting from "./providers/google-oauth/scheduleCalendarMeeting";
 import createNote from "./providers/ashby/createNote";
 import getCandidateInfo from "./providers/ashby/getCandidateInfo";
+import updateRecord from "./providers/salesforce/updateRecord";
+import createCase from "./providers/salesforce/createCase";
+import generateSalesReport from "./providers/salesforce/generateSalesReport";
+import getRecord from "./providers/salesforce/getRecord";
 
 interface ActionFunctionComponents {
   // eslint-disable-next-line
@@ -319,6 +331,28 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: getCandidateInfo,
       paramsSchema: ashbyGetCandidateInfoParamsSchema,
       outputSchema: ashbyGetCandidateInfoOutputSchema,
+    },
+  },
+  salesforce: {
+    updateRecord: {
+      fn: updateRecord,
+      paramsSchema: salesforceUpdateRecordParamsSchema,
+      outputSchema: salesforceUpdateRecordOutputSchema,
+    },
+    createCase: {
+      fn: createCase,
+      paramsSchema: salesforceCreateCaseParamsSchema,
+      outputSchema: salesforceCreateCaseOutputSchema,
+    },
+    generateSalesReport: {
+      fn: generateSalesReport,
+      paramsSchema: salesforceGenerateSalesReportParamsSchema,
+      outputSchema: salesforceGenerateSalesReportOutputSchema,
+    },
+    getRecord: {
+      fn: getRecord,
+      paramsSchema: salesforceGetRecordParamsSchema,
+      outputSchema: salesforceGetRecordOutputSchema,
     },
   },
 };
