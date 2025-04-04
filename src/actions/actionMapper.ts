@@ -71,8 +71,18 @@ import {
   snowflakeRunSnowflakeQueryOutputSchema,
   lookerEnableUserByEmailParamsSchema,
   lookerEnableUserByEmailOutputSchema,
+  googleOauthUpdateDocParamsSchema,
+  googleOauthUpdateDocOutputSchema,
+  googleOauthCreateSpreadsheetParamsSchema,
+  googleOauthCreateSpreadsheetOutputSchema,
+  googleOauthUpdateSpreadsheetParamsSchema,
+  googleOauthUpdateSpreadsheetOutputSchema,
   googleOauthScheduleCalendarMeetingParamsSchema,
   googleOauthScheduleCalendarMeetingOutputSchema,
+  googleOauthCreatePresentationParamsSchema,
+  googleOauthCreatePresentationOutputSchema,
+  googleOauthUpdatePresentationParamsSchema,
+  googleOauthUpdatePresentationOutputSchema,
   ashbyCreateNoteParamsSchema,
   ashbyCreateNoteOutputSchema,
   ashbyGetCandidateInfoParamsSchema,
@@ -153,7 +163,12 @@ import confluenceOverwritePage from "./providers/confluence/overwritePage";
 import confluenceFetchPageContent from "./providers/confluence/fetchPageContent";
 import runSnowflakeQuery from "./providers/snowflake/runSnowflakeQuery";
 import enableUserByEmail from "./providers/looker/enableUserByEmail";
+import updateDoc from "./providers/google-oauth/updateDoc";
 import scheduleCalendarMeeting from "./providers/google-oauth/scheduleCalendarMeeting";
+import createSpreadsheet from "./providers/google-oauth/createSpreadsheet";
+import updateSpreadsheet from "./providers/google-oauth/updateSpreadsheet";
+import createPresentation from "./providers/google-oauth/createPresentation";
+import updatePresentation from "./providers/google-oauth/updatePresentation";
 import createNote from "./providers/ashby/createNote";
 import getCandidateInfo from "./providers/ashby/getCandidateInfo";
 import updateRecord from "./providers/salesforce/updateRecord";
@@ -381,10 +396,35 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       paramsSchema: googleOauthCreateNewGoogleDocParamsSchema,
       outputSchema: googleOauthCreateNewGoogleDocOutputSchema,
     },
+    updateDoc: {
+      fn: updateDoc,
+      paramsSchema: googleOauthUpdateDocParamsSchema,
+      outputSchema: googleOauthUpdateDocOutputSchema,
+    },
     scheduleCalendarMeeting: {
       fn: scheduleCalendarMeeting,
       paramsSchema: googleOauthScheduleCalendarMeetingParamsSchema,
       outputSchema: googleOauthScheduleCalendarMeetingOutputSchema,
+    },
+    createSpreadsheet: {
+      fn: createSpreadsheet,
+      paramsSchema: googleOauthCreateSpreadsheetParamsSchema,
+      outputSchema: googleOauthCreateSpreadsheetOutputSchema,
+    },
+    updateSpreadsheet: {
+      fn: updateSpreadsheet,
+      paramsSchema: googleOauthUpdateSpreadsheetParamsSchema,
+      outputSchema: googleOauthUpdateSpreadsheetOutputSchema,
+    },
+    createPresentation: {
+      fn: createPresentation,
+      paramsSchema: googleOauthCreatePresentationParamsSchema,
+      outputSchema: googleOauthCreatePresentationOutputSchema,
+    },
+    updatePresentation: {
+      fn: updatePresentation,
+      paramsSchema: googleOauthUpdatePresentationParamsSchema,
+      outputSchema: googleOauthUpdatePresentationOutputSchema,
     },
   },
   x: {
