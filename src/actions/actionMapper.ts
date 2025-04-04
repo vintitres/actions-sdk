@@ -105,6 +105,12 @@ import {
   asanaCreateTaskOutputSchema,
   asanaUpdateTaskParamsSchema,
   asanaUpdateTaskOutputSchema,
+  githubCreateOrUpdateFileParamsSchema,
+  githubCreateOrUpdateFileOutputSchema,
+  githubCreateBranchParamsSchema,
+  githubCreateBranchOutputSchema,
+  githubCreatePullRequestParamsSchema,
+  githubCreatePullRequestOutputSchema,
 } from "./autogen/types";
 import callCopilot from "./providers/credal/callCopilot";
 import validateAddress from "./providers/googlemaps/validateAddress";
@@ -159,6 +165,9 @@ import updateCandidate from "./providers/ashby/updateCandidate";
 import addCandidateToProject from "./providers/ashby/addCandidateToProject";
 import sendMessageToTeamsChat from "./providers/microsoft/messageTeamsChat";
 import sendMessageToTeamsChannel from "./providers/microsoft/messageTeamsChannel";
+import createOrUpdateFile from "./providers/github/createOrUpdateFile";
+import createBranch from "./providers/github/createBranch";
+import createPullRequest from "./providers/github/createPullRequest";
 
 interface ActionFunctionComponents {
   // eslint-disable-next-line
@@ -475,6 +484,23 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: sendMessageToTeamsChannel,
       paramsSchema: microsoftMessageTeamsChannelParamsSchema,
       outputSchema: microsoftMessageTeamsChannelOutputSchema,
+    },
+  },
+  github: {
+    createOrUpdateFile: {
+      fn: createOrUpdateFile,
+      paramsSchema: githubCreateOrUpdateFileParamsSchema,
+      outputSchema: githubCreateOrUpdateFileOutputSchema,
+    },
+    createBranch: {
+      fn: createBranch,
+      paramsSchema: githubCreateBranchParamsSchema,
+      outputSchema: githubCreateBranchOutputSchema,
+    },
+    createPullRequest: {
+      fn: createPullRequest,
+      paramsSchema: githubCreatePullRequestParamsSchema,
+      outputSchema: githubCreatePullRequestOutputSchema,
     },
   },
 };
