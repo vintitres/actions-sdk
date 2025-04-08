@@ -1,10 +1,10 @@
-import {
+import type {
   finnhubGetBasicFinancialsFunction,
   finnhubGetBasicFinancialsParamsType,
   finnhubGetBasicFinancialsOutputType,
-  finnhubGetBasicFinancialsOutputSchema,
   AuthParamsType,
 } from "../../autogen/types";
+import { finnhubGetBasicFinancialsOutputSchema } from "../../autogen/types";
 import { axiosClient } from "../../util/axiosClient";
 
 interface FinancialMetricData {

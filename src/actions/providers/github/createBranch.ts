@@ -1,4 +1,4 @@
-import {
+import type {
   AuthParamsType,
   githubCreateBranchFunction,
   githubCreateBranchOutputType,
@@ -18,7 +18,7 @@ const createBranch: githubCreateBranchFunction = async ({
   if (!authParams.authToken) {
     return { success: false, error: "authToken is required for GitHub API" };
   }
-  const { Octokit, RequestError} = await import("octokit");
+  const { Octokit, RequestError } = await import("octokit");
 
   const { repositoryOwner, repositoryName, branchName, baseRefOrHash } = params;
 

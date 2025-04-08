@@ -1,5 +1,4 @@
-
-import {
+import type {
   AuthParamsType,
   githubCreatePullRequestFunction,
   githubCreatePullRequestOutputType,
@@ -20,7 +19,7 @@ const createPullRequest: githubCreatePullRequestFunction = async ({
     return { success: false, error: "authToken is required for GitHub API" };
   }
 
-  const { Octokit, RequestError} = await import("octokit");
+  const { Octokit, RequestError } = await import("octokit");
 
   const { repositoryOwner, repositoryName, head, base, title, description } = params;
 

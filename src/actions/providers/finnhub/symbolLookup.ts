@@ -1,10 +1,10 @@
-import {
+import type {
   finnhubSymbolLookupFunction,
   finnhubSymbolLookupParamsType,
   finnhubSymbolLookupOutputType,
-  finnhubSymbolLookupOutputSchema,
   AuthParamsType,
 } from "../../autogen/types";
+import { finnhubSymbolLookupOutputSchema } from "../../autogen/types";
 import { axiosClient } from "../../util/axiosClient";
 
 const symbolLookup: finnhubSymbolLookupFunction = async ({
