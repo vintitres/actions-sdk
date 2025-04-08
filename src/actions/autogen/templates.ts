@@ -1,5 +1,31 @@
 import { ActionTemplate } from "../../actions/parse";
 
+export const genericFillTemplateActionDefinition: ActionTemplate = {
+  description: "Simple utility that takes a template and returns it without modification",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["template"],
+    properties: {
+      template: {
+        type: "string",
+        description: "The template string to be processed and returned",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["result"],
+    properties: {
+      result: {
+        type: "string",
+        description: "The template string returned without modification",
+      },
+    },
+  },
+  name: "fillTemplateAction",
+  provider: "generic",
+};
 export const asanaCommentTaskDefinition: ActionTemplate = {
   description: "Comments on an Asana task with specified content",
   scopes: [],

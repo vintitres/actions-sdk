@@ -1,4 +1,5 @@
 import {
+  genericFillTemplateActionDefinition,
   confluenceOverwritePageDefinition,
   credalCallCopilotDefinition,
   googlemapsValidateAddressDefinition,
@@ -58,6 +59,10 @@ import type { ActionTemplate } from "../actions/parse";
 export type ActionGroups = Record<string, { description: string; actions: ActionTemplate[] }>;
 
 export const ACTION_GROUPS: ActionGroups = {
+  GENERIC: {
+    description: "Generic utility actions",
+    actions: [genericFillTemplateActionDefinition],
+  },
   ASANA: {
     description: "Actions for interacting with Asana",
     actions: [asanaCommentTaskDefinition, asanaCreateTaskDefinition, asanaUpdateTaskDefinition],
