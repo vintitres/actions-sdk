@@ -834,6 +834,35 @@ export type nwsGetForecastForLocationFunction = ActionFunction<
   nwsGetForecastForLocationOutputType
 >;
 
+export const firecrawlDeepResearchParamsSchema = z.object({
+  query: z.string().describe("The query to search for"),
+  maxDepth: z.number().describe("The maximum depth of the search").optional(),
+  timeLimit: z.number().describe("The time limit for the search in seconds").optional(),
+  maxUrls: z.number().describe("The maximum number of URLs to scrape").optional(),
+});
+
+export type firecrawlDeepResearchParamsType = z.infer<typeof firecrawlDeepResearchParamsSchema>;
+
+export const firecrawlDeepResearchOutputSchema = z.object({
+  finalAnalysis: z.string().describe("The content of the research"),
+  sources: z
+    .array(
+      z.object({
+        url: z.string().describe("The URL of the source"),
+        title: z.string().describe("The title of the source"),
+        description: z.string().describe("The description of the source").optional(),
+      }),
+    )
+    .describe("The sources of the research"),
+});
+
+export type firecrawlDeepResearchOutputType = z.infer<typeof firecrawlDeepResearchOutputSchema>;
+export type firecrawlDeepResearchFunction = ActionFunction<
+  firecrawlDeepResearchParamsType,
+  AuthParamsType,
+  firecrawlDeepResearchOutputType
+>;
+
 export const firecrawlScrapeUrlParamsSchema = z.object({ url: z.string().describe("The URL to scrape") });
 
 export type firecrawlScrapeUrlParamsType = z.infer<typeof firecrawlScrapeUrlParamsSchema>;
