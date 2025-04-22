@@ -6,7 +6,6 @@ import {
   type githubListPullRequestsOutputType,
   githubListPullRequestsOutputSchema,
 } from "../../autogen/types";
-import { number } from "zod";
 
 const listPullRequests: githubListPullRequestsFunction = async ({
   params,
@@ -22,12 +21,14 @@ const listPullRequests: githubListPullRequestsFunction = async ({
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
-  const allPulls: any[] = [];
+  type PullRequest = githubListPullRequestsOutputType["pullRequests"][number];
+
+  const allPulls: PullRequest[] = [];
   let page = 1;
   const perPage = 100;
 
   while (true) {
-    const response = await axios.get(url, {
+    const response = await axios.get<PullRequest[]>(url, {
       headers: {
         Authorization: `Bearer ${authToken}`,
         Accept: "application/vnd.github+json",
@@ -46,7 +47,8 @@ const listPullRequests: githubListPullRequestsFunction = async ({
     if (pulls.length === 0) break;
 
     // Filter by date
-    const recentPulls = pulls.filter((pr: any) => new Date(pr.created_at) >= oneYearAgo);
+    const recentPulls = pulls.filter(pr => pr.createdAt && new Date(pr.createdAt) >= oneYearAgo);
+
     allPulls.push(...recentPulls);
 
     // Stop if the rest are older than one year
@@ -56,20 +58,7 @@ const listPullRequests: githubListPullRequestsFunction = async ({
   }
 
   return githubListPullRequestsOutputSchema.parse({
-    pullRequests: allPulls.map((pr: any) => ({
-      title: pr.title,
-      url: pr.html_url,
-      createdAt: pr.created_at,
-      updatedAt: pr.updated_at,
-      user: {
-        login: pr.user.login,
-        avatarUrl: pr.user.avatar_url,
-        htmlUrl: pr.user.html_url,
-      },
-      state: pr.state,
-      number: pr.number,
-      description: pr.description,
-    })),
+    pullRequests: allPulls,
   });
 };
 
