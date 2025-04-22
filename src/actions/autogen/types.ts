@@ -3162,3 +3162,37 @@ export type githubCreatePullRequestFunction = ActionFunction<
   AuthParamsType,
   githubCreatePullRequestOutputType
 >;
+
+export const githubListPullRequestsParamsSchema = z.object({
+  repositoryOwner: z.string().describe("The owner of the repository"),
+  repositoryName: z.string().describe("The name of the repository"),
+  state: z.string().describe("The state of the pull requests to list (e.g., open, closed)").optional(),
+});
+
+export type githubListPullRequestsParamsType = z.infer<typeof githubListPullRequestsParamsSchema>;
+
+export const githubListPullRequestsOutputSchema = z.object({
+  pullRequests: z
+    .array(
+      z.object({
+        number: z.number().describe("The number of the pull request").optional(),
+        title: z.string().describe("The title of the pull request").optional(),
+        state: z.string().describe("The state of the pull request (e.g., open, closed)").optional(),
+        url: z.string().describe("The URL of the pull request").optional(),
+        createdAt: z.string().describe("The date and time when the pull request was created").optional(),
+        updatedAt: z.string().describe("The date and time when the pull request was last updated").optional(),
+        user: z
+          .object({ login: z.string().describe("The username of the user who created the pull request").optional() })
+          .optional(),
+        description: z.string().describe("The description of the pull request").optional(),
+      }),
+    )
+    .describe("A list of pull requests in the repository"),
+});
+
+export type githubListPullRequestsOutputType = z.infer<typeof githubListPullRequestsOutputSchema>;
+export type githubListPullRequestsFunction = ActionFunction<
+  githubListPullRequestsParamsType,
+  AuthParamsType,
+  githubListPullRequestsOutputType
+>;

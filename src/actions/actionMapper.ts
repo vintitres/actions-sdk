@@ -133,6 +133,8 @@ import {
   microsoftGetDocumentOutputSchema,
   salesforceFetchSalesforceSchemaByObjectParamsSchema,
   salesforceFetchSalesforceSchemaByObjectOutputSchema,
+  githubListPullRequestsParamsSchema,
+  githubListPullRequestsOutputSchema,
   jiraGetJiraIssuesByQueryOutputSchema,
   jiraGetJiraIssuesByQueryParamsSchema,
 } from "./autogen/types";
@@ -205,6 +207,7 @@ import createDocument from "./providers/microsoft/createDocument";
 import getDocument from "./providers/microsoft/getDocument";
 import fetchSalesforceSchemaByObject from "./providers/salesforce/fetchSalesforceSchema";
 import deepResearch from "./providers/firecrawl/deepResearch";
+import listPullRequests from "./providers/github/listPullRequests";
 import getJiraIssuesByQuery from "./providers/jira/getJiraIssuesByQuery";
 
 interface ActionFunctionComponents {
@@ -611,6 +614,11 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: createPullRequest,
       paramsSchema: githubCreatePullRequestParamsSchema,
       outputSchema: githubCreatePullRequestOutputSchema,
+    },
+    listPullRequests: {
+      fn: listPullRequests,
+      paramsSchema: githubListPullRequestsParamsSchema,
+      outputSchema: githubListPullRequestsOutputSchema,
     },
   },
 };
