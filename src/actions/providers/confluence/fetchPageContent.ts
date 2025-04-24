@@ -1,21 +1,11 @@
-import type { AxiosRequestConfig } from "axios";
 import type {
   confluenceFetchPageContentFunction,
   confluenceFetchPageContentParamsType,
   confluenceFetchPageContentOutputType,
   AuthParamsType,
 } from "../../autogen/types";
+import { getConfluenceRequestConfig } from "./helpers";
 import { axiosClient } from "../../util/axiosClient";
-
-function getConfluenceRequestConfig(baseUrl: string, username: string, apiToken: string): AxiosRequestConfig {
-  return {
-    baseURL: baseUrl,
-    headers: {
-      Accept: "application/json",
-      Authorization: `Basic ${Buffer.from(`${username}:${apiToken}`).toString("base64")}`,
-    },
-  };
-}
 
 const confluenceFetchPageContent: confluenceFetchPageContentFunction = async ({
   params,
@@ -25,16 +15,20 @@ const confluenceFetchPageContent: confluenceFetchPageContentFunction = async ({
   authParams: AuthParamsType;
 }): Promise<confluenceFetchPageContentOutputType> => {
   const { pageId } = params;
-  const { baseUrl, authToken, username } = authParams;
+  const { authToken } = authParams;
 
-  if (!baseUrl || !authToken || !username) {
+  if (!authToken) {
     throw new Error("Missing required authentication parameters");
   }
 
-  const config = getConfluenceRequestConfig(baseUrl, username, authToken);
+  const cloudDetails = await axiosClient.get("https://api.atlassian.com/oauth/token/accessible-resources");
+  const cloudId = cloudDetails.data[0].id;
+  const baseUrl = `https://api.atlassian.com/ex/confluence/${cloudId}/api/v2`;
+
+  const config = getConfluenceRequestConfig(baseUrl, authToken);
 
   // Get page content and metadata
-  const response = await axiosClient.get(`/api/v2/pages/${pageId}?body-format=storage`, config);
+  const response = await axiosClient.get(`/pages/${pageId}?body-format=storage`, config);
 
   // Extract needed data from response
   const title = response.data.title;
