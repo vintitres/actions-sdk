@@ -4,7 +4,7 @@ import type {
   salesforceCreateRecordOutputType,
   salesforceCreateRecordParamsType,
 } from "../../autogen/types";
-import { axiosClient } from "../../util/axiosClient";
+import { ApiError, axiosClient } from "../../util/axiosClient";
 
 const createRecord: salesforceCreateRecordFunction = async ({
   params,
@@ -41,7 +41,12 @@ const createRecord: salesforceCreateRecordFunction = async ({
     console.error("Error creating Salesforce object:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : "An unknown error occurred",
+      error:
+        error instanceof ApiError
+          ? error.data.length > 0
+            ? error.data[0].message
+            : error.message
+          : "An unknown error occurred",
     };
   }
 };
