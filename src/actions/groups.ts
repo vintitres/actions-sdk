@@ -7,8 +7,14 @@ import {
   mongoInsertMongoDocDefinition,
   slackListConversationsDefinition,
   slackSendMessageDefinition,
+  slackGetChannelMessagesDefinition,
   snowflakeGetRowByFieldValueDefinition,
   zendeskCreateZendeskTicketDefinition,
+  zendeskListZendeskTicketsDefinition,
+  zendeskGetTicketDetailsDefinition,
+  zendeskUpdateTicketStatusDefinition,
+  zendeskAddCommentToTicketDefinition,
+  zendeskAssignTicketDefinition,
   openstreetmapGetLatitudeLongitudeFromLocationDefinition,
   nwsGetForecastForLocationDefinition,
   jiraAssignJiraTicketDefinition,
@@ -58,6 +64,14 @@ import {
   jiraGetJiraIssuesByQueryDefinition,
   githubListPullRequestsDefinition,
   salesforceCreateRecordDefinition,
+  ashbyCreateNoteDefinition,
+  ashbyGetCandidateInfoDefinition,
+  ashbyListCandidatesDefinition,
+  ashbyListCandidateNotesDefinition,
+  ashbySearchCandidatesDefinition,
+  ashbyCreateCandidateDefinition,
+  ashbyUpdateCandidateDefinition,
+  ashbyAddCandidateToProjectDefinition,
 } from "../actions/autogen/templates";
 import type { ActionTemplate } from "../actions/parse";
 
@@ -74,7 +88,7 @@ export const ACTION_GROUPS: ActionGroups = {
   },
   SLACK_LIST_CONVERSATIONS: {
     description: "Actions for interacting with Slack",
-    actions: [slackListConversationsDefinition, slackSendMessageDefinition],
+    actions: [slackListConversationsDefinition, slackSendMessageDefinition, slackGetChannelMessagesDefinition],
   },
   CONFLUENCE: {
     description: "Action for interacting with Confluence",
@@ -111,9 +125,16 @@ export const ACTION_GROUPS: ActionGroups = {
     description: "Action for creating a share post url on linkedin",
     actions: [linkedinCreateShareLinkedinPostUrlDefinition],
   },
-  ZENDESK_CREATE_TICKET: {
-    description: "Action for creating a Zendesk ticket",
-    actions: [zendeskCreateZendeskTicketDefinition],
+  ZENDESK_ACTIONS: {
+    description: "Actions for interacting with Zendesk",
+    actions: [
+      zendeskCreateZendeskTicketDefinition,
+      zendeskListZendeskTicketsDefinition,
+      zendeskGetTicketDetailsDefinition,
+      zendeskUpdateTicketStatusDefinition,
+      zendeskAddCommentToTicketDefinition,
+      zendeskAssignTicketDefinition,
+    ],
   },
   MONGO_INSERT_DOC: {
     description: "Action for inserting a document into a MongoDB collection",
@@ -198,6 +219,19 @@ export const ACTION_GROUPS: ActionGroups = {
       githubCreateBranchDefinition,
       githubCreatePullRequestDefinition,
       githubListPullRequestsDefinition,
+    ],
+  },
+  ASHBY: {
+    description: "Actions for interacting with Ashby",
+    actions: [
+      ashbyCreateNoteDefinition,
+      ashbyGetCandidateInfoDefinition,
+      ashbyListCandidatesDefinition,
+      ashbyListCandidateNotesDefinition,
+      ashbySearchCandidatesDefinition,
+      ashbyCreateCandidateDefinition,
+      ashbyUpdateCandidateDefinition,
+      ashbyAddCandidateToProjectDefinition,
     ],
   },
 };

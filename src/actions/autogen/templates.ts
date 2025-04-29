@@ -1154,6 +1154,43 @@ export const zendeskCreateZendeskTicketDefinition: ActionTemplate = {
   name: "createZendeskTicket",
   provider: "zendesk",
 };
+export const zendeskListZendeskTicketsDefinition: ActionTemplate = {
+  description: "List tickets in Zendesk from the past 3 months",
+  scopes: [],
+  parameters: {
+    type: "object",
+    required: ["subdomain"],
+    properties: {
+      subdomain: {
+        type: "string",
+        description: "The subdomain of the Zendesk account",
+      },
+      status: {
+        type: "string",
+        description: "Filter tickets by status (new, open, pending, hold, solved, closed)",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["tickets", "count"],
+    properties: {
+      tickets: {
+        type: "array",
+        description: "List of tickets",
+        items: {
+          type: "object",
+        },
+      },
+      count: {
+        type: "number",
+        description: "Number of tickets found",
+      },
+    },
+  },
+  name: "listZendeskTickets",
+  provider: "zendesk",
+};
 export const zendeskGetTicketDetailsDefinition: ActionTemplate = {
   description: "Get details of a ticket in Zendesk",
   scopes: [],
