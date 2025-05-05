@@ -13,7 +13,7 @@ const listZendeskTickets: zendeskListZendeskTicketsFunction = async ({
   params: zendeskListZendeskTicketsParamsType;
   authParams: AuthParamsType;
 }): Promise<zendeskListZendeskTicketsOutputType> => {
-  const { apiKey, username } = authParams;
+  const { authToken } = authParams;
   const { subdomain, status } = params;
 
   // Calculate date 3 months ago from now
@@ -24,8 +24,8 @@ const listZendeskTickets: zendeskListZendeskTicketsFunction = async ({
   // Endpoint for getting tickets
   const url = `https://${subdomain}.zendesk.com/api/v2/tickets.json`;
 
-  if (!apiKey) {
-    throw new Error("API key is required");
+  if (!authToken) {
+    throw new Error("Auth token is required");
   }
 
   // Add query parameters for filtering
@@ -37,12 +37,9 @@ const listZendeskTickets: zendeskListZendeskTicketsFunction = async ({
   }
 
   const response = await axiosClient.get(`${url}?${queryParams.toString()}`, {
-    auth: {
-      username: `${username}/token`,
-      password: apiKey,
-    },
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
     },
   });
 
