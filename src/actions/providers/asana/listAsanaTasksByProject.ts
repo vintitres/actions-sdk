@@ -22,13 +22,15 @@ const TaskDetailsSchema = z
     completed: z.boolean(),
     modified_at: z.string(),
     notes: z.string(),
-    custom_fields: z.array(
-      z.object({
-        gid: z.string(),
-        name: z.string(),
-        display_value: z.string(),
-      }),
-    ),
+    custom_fields: z
+      .array(
+        z.object({
+          gid: z.string(),
+          name: z.string(),
+          display_value: z.string().nullable(),
+        }),
+      )
+      .nullable(),
     num_subtasks: z.number(),
   })
   .partial()
