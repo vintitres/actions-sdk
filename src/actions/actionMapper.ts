@@ -151,6 +151,8 @@ import {
   kandjiGetFVRecoveryKeyForDeviceOutputSchema,
   asanaListAsanaTasksByProjectParamsSchema,
   asanaListAsanaTasksByProjectOutputSchema,
+  asanaSearchTasksParamsSchema,
+  asanaSearchTasksOutputSchema,
 } from "./autogen/types";
 import callCopilot from "./providers/credal/callCopilot";
 import validateAddress from "./providers/googlemaps/validateAddress";
@@ -182,6 +184,7 @@ import sendEmail from "./providers/resend/sendEmail";
 import commentAsanaTask from "./providers/asana/commentAsanaTask";
 import createAsanaTask from "./providers/asana/createAsanaTask";
 import updateAsanaTask from "./providers/asana/updateAsanaTask";
+import searchAsanaTasks from "./providers/asana/searchAsanaTasks";
 import createShareLinkedinPostUrl from "./providers/linkedin/createSharePostLinkedinUrl";
 import createNewGoogleDoc from "./providers/google-oauth/createNewGoogleDoc";
 import createXSharePostUrl from "./providers/x/createXSharePostUrl";
@@ -260,6 +263,11 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: updateAsanaTask,
       paramsSchema: asanaUpdateTaskParamsSchema,
       outputSchema: asanaUpdateTaskOutputSchema,
+    },
+    searchTasks: {
+      fn: searchAsanaTasks,
+      paramsSchema: asanaSearchTasksParamsSchema,
+      outputSchema: asanaSearchTasksOutputSchema,
     },
     listAsanaTasksByProject: {
       fn: listAsanaTasksByProject,
