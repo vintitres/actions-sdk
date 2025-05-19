@@ -85,6 +85,8 @@ import {
   googleOauthCreatePresentationOutputSchema,
   googleOauthUpdatePresentationParamsSchema,
   googleOauthUpdatePresentationOutputSchema,
+  googleOauthSearchDriveByKeywordsParamsSchema,
+  googleOauthSearchDriveByKeywordsOutputSchema,
   ashbyCreateNoteParamsSchema,
   ashbyCreateNoteOutputSchema,
   ashbyGetCandidateInfoParamsSchema,
@@ -231,6 +233,7 @@ import getJiraIssuesByQuery from "./providers/jira/getJiraIssuesByQuery";
 import createRecord from "./providers/salesforce/createRecord";
 import getTopNSearchResultUrls from "./providers/bing/getTopNSearchResultUrls";
 import getGongTranscripts from "./providers/gong/getGongTranscripts";
+import searchDriveByKeywords from "./providers/google-oauth/searchDriveByKeywords";
 import { gongGetGongTranscriptsParamsSchema, gongGetGongTranscriptsOutputSchema } from "./autogen/types";
 import getFVRecoveryKeyForDevice from "./providers/kandji/getFVRecoveryKeyForDevice";
 import listAsanaTasksByProject from "./providers/asana/listAsanaTasksByProject";
@@ -519,6 +522,11 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: updatePresentation,
       paramsSchema: googleOauthUpdatePresentationParamsSchema,
       outputSchema: googleOauthUpdatePresentationOutputSchema,
+    },
+    searchDriveByKeywords: {
+      fn: searchDriveByKeywords,
+      paramsSchema: googleOauthSearchDriveByKeywordsParamsSchema,
+      outputSchema: googleOauthSearchDriveByKeywordsOutputSchema,
     },
   },
   x: {

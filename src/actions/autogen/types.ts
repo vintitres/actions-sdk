@@ -2398,7 +2398,7 @@ export const googleOauthUpdatePresentationParamsSchema = z.object({
                         text: z.string().describe("The text the shape must contain to be replaced"),
                         matchCase: z.boolean().describe("Whether the text match is case-sensitive").optional(),
                       })
-                      .describe("Criteria for shapes to replace (must contain specified text)"),
+                      .describe("The text to search for in shapes to be replaced"),
                     replaceMethod: z
                       .enum(["CENTER_INSIDE", "CENTER_CROP"])
                       .describe("The image replace method (Defaults to CENTER_INSIDE)")
@@ -2725,6 +2725,35 @@ export type googleOauthUpdatePresentationFunction = ActionFunction<
   googleOauthUpdatePresentationParamsType,
   AuthParamsType,
   googleOauthUpdatePresentationOutputType
+>;
+
+export const googleOauthSearchDriveByKeywordsParamsSchema = z.object({
+  keywords: z.array(z.string()).describe("List of keywords to search for in file contents."),
+});
+
+export type googleOauthSearchDriveByKeywordsParamsType = z.infer<typeof googleOauthSearchDriveByKeywordsParamsSchema>;
+
+export const googleOauthSearchDriveByKeywordsOutputSchema = z.object({
+  success: z.boolean().describe("Whether the search was successful"),
+  files: z
+    .array(
+      z.object({
+        id: z.string().describe("The file ID"),
+        name: z.string().describe("The file name"),
+        mimeType: z.string().describe("The MIME type of the file"),
+        url: z.string().describe("The web link to view the file"),
+      }),
+    )
+    .describe("List of files matching the search")
+    .optional(),
+  error: z.string().describe("Error message if search failed").optional(),
+});
+
+export type googleOauthSearchDriveByKeywordsOutputType = z.infer<typeof googleOauthSearchDriveByKeywordsOutputSchema>;
+export type googleOauthSearchDriveByKeywordsFunction = ActionFunction<
+  googleOauthSearchDriveByKeywordsParamsType,
+  AuthParamsType,
+  googleOauthSearchDriveByKeywordsOutputType
 >;
 
 export const gongGetGongTranscriptsParamsSchema = z.object({
@@ -3484,4 +3513,32 @@ export type githubListPullRequestsFunction = ActionFunction<
   githubListPullRequestsParamsType,
   AuthParamsType,
   githubListPullRequestsOutputType
+>;
+
+export const googleDriveSearchFilesByKeywordsParamsSchema = z.object({
+  keywords: z.array(z.string()).describe("List of keywords to search for in file contents."),
+});
+
+export type googleDriveSearchFilesByKeywordsParamsType = z.infer<typeof googleDriveSearchFilesByKeywordsParamsSchema>;
+
+export const googleDriveSearchFilesByKeywordsOutputSchema = z.object({
+  success: z.boolean().describe("Whether the search was successful"),
+  files: z
+    .array(
+      z.object({
+        id: z.string().describe("The file ID"),
+        name: z.string().describe("The file name"),
+        mimeType: z.string().describe("The MIME type of the file"),
+        webViewLink: z.string().describe("The web link to view the file"),
+      }),
+    )
+    .describe("List of files matching the search"),
+  error: z.string().describe("Error message if search failed").optional(),
+});
+
+export type googleDriveSearchFilesByKeywordsOutputType = z.infer<typeof googleDriveSearchFilesByKeywordsOutputSchema>;
+export type googleDriveSearchFilesByKeywordsFunction = ActionFunction<
+  googleDriveSearchFilesByKeywordsParamsType,
+  AuthParamsType,
+  googleDriveSearchFilesByKeywordsOutputType
 >;

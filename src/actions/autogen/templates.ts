@@ -4591,7 +4591,7 @@ export const googleOauthUpdatePresentationDefinition: ActionTemplate = {
                     },
                     containsText: {
                       type: "object",
-                      description: "Criteria for shapes to replace (must contain specified text)",
+                      description: "The text to search for in shapes to be replaced",
                       required: ["text"],
                       properties: {
                         text: {
@@ -5214,6 +5214,65 @@ export const googleOauthUpdatePresentationDefinition: ActionTemplate = {
     },
   },
   name: "updatePresentation",
+  provider: "googleOauth",
+};
+export const googleOauthSearchDriveByKeywordsDefinition: ActionTemplate = {
+  description: "Search Google Drive files that contain one or more keywords in their full text.",
+  scopes: ["drive.readonly"],
+  parameters: {
+    type: "object",
+    required: ["keywords"],
+    properties: {
+      keywords: {
+        type: "array",
+        description: "List of keywords to search for in file contents.",
+        items: {
+          type: "string",
+        },
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the search was successful",
+      },
+      files: {
+        type: "array",
+        description: "List of files matching the search",
+        items: {
+          type: "object",
+          required: ["id", "name", "mimeType", "url"],
+          properties: {
+            id: {
+              type: "string",
+              description: "The file ID",
+            },
+            name: {
+              type: "string",
+              description: "The file name",
+            },
+            mimeType: {
+              type: "string",
+              description: "The MIME type of the file",
+            },
+            url: {
+              type: "string",
+              description: "The web link to view the file",
+            },
+          },
+        },
+      },
+      error: {
+        type: "string",
+        description: "Error message if search failed",
+      },
+    },
+  },
+  name: "searchDriveByKeywords",
   provider: "googleOauth",
 };
 export const gongGetGongTranscriptsDefinition: ActionTemplate = {
@@ -6639,4 +6698,63 @@ export const githubListPullRequestsDefinition: ActionTemplate = {
   },
   name: "listPullRequests",
   provider: "github",
+};
+export const googleDriveSearchFilesByKeywordsDefinition: ActionTemplate = {
+  description: "Search Google Drive files that contain one or more keywords in their full text.",
+  scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+  parameters: {
+    type: "object",
+    required: ["keywords"],
+    properties: {
+      keywords: {
+        type: "array",
+        description: "List of keywords to search for in file contents.",
+        items: {
+          type: "string",
+        },
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success", "files"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the search was successful",
+      },
+      files: {
+        type: "array",
+        description: "List of files matching the search",
+        items: {
+          type: "object",
+          required: ["id", "name", "mimeType", "webViewLink"],
+          properties: {
+            id: {
+              type: "string",
+              description: "The file ID",
+            },
+            name: {
+              type: "string",
+              description: "The file name",
+            },
+            mimeType: {
+              type: "string",
+              description: "The MIME type of the file",
+            },
+            webViewLink: {
+              type: "string",
+              description: "The web link to view the file",
+            },
+          },
+        },
+      },
+      error: {
+        type: "string",
+        description: "Error message if search failed",
+      },
+    },
+  },
+  name: "searchFilesByKeywords",
+  provider: "googleDrive",
 };
