@@ -157,6 +157,8 @@ import {
   asanaSearchTasksOutputSchema,
   asanaGetTasksDetailsParamsSchema,
   asanaGetTasksDetailsOutputSchema,
+  notionSearchByTitleParamsSchema,
+  notionSearchByTitleOutputSchema,
 } from "./autogen/types";
 import callCopilot from "./providers/credal/callCopilot";
 import validateAddress from "./providers/googlemaps/validateAddress";
@@ -238,6 +240,8 @@ import { gongGetGongTranscriptsParamsSchema, gongGetGongTranscriptsOutputSchema 
 import getFVRecoveryKeyForDevice from "./providers/kandji/getFVRecoveryKeyForDevice";
 import listAsanaTasksByProject from "./providers/asana/listAsanaTasksByProject";
 import getTasksDetails from "./providers/asana/getTasksDetails";
+import searchByTitle from "./providers/notion/searchByTitle";
+
 interface ActionFunctionComponents {
   // eslint-disable-next-line
   fn: ActionFunction<any, any, any>;
@@ -693,6 +697,13 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: listPullRequests,
       paramsSchema: githubListPullRequestsParamsSchema,
       outputSchema: githubListPullRequestsOutputSchema,
+    },
+  },
+  notion: {
+    searchByTitle: {
+      fn: searchByTitle,
+      paramsSchema: notionSearchByTitleParamsSchema,
+      outputSchema: notionSearchByTitleOutputSchema,
     },
   },
 };

@@ -77,6 +77,7 @@ import {
   gongGetGongTranscriptsDefinition,
   kandjiGetFVRecoveryKeyForDeviceDefinition,
   asanaListAsanaTasksByProjectDefinition,
+  notionSearchByTitleDefinition,
 } from "../actions/autogen/templates";
 import type { ActionTemplate } from "../actions/parse";
 
@@ -257,5 +258,9 @@ export const ACTION_GROUPS: ActionGroups = {
       ashbyUpdateCandidateDefinition,
       ashbyAddCandidateToProjectDefinition,
     ],
+  },
+  NOTION: {
+    description: "Actions for interacting with Notion",
+    actions: [notionSearchByTitleDefinition],
   },
 };

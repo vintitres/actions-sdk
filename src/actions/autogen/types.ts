@@ -3542,3 +3542,31 @@ export type googleDriveSearchFilesByKeywordsFunction = ActionFunction<
   AuthParamsType,
   googleDriveSearchFilesByKeywordsOutputType
 >;
+
+export const notionSearchByTitleParamsSchema = z.object({
+  query: z.string().describe("The query to search for in Notion titles"),
+});
+
+export type notionSearchByTitleParamsType = z.infer<typeof notionSearchByTitleParamsSchema>;
+
+export const notionSearchByTitleOutputSchema = z.object({
+  success: z.boolean().describe("Whether the search was successful"),
+  results: z
+    .array(
+      z.object({
+        id: z.string().describe("The Notion page ID"),
+        title: z.string().nullable().describe("The page title").optional(),
+        url: z.string().describe("The URL to the Notion page"),
+      }),
+    )
+    .describe("List of matching Notion pages")
+    .optional(),
+  error: z.string().describe("Error message if search failed").optional(),
+});
+
+export type notionSearchByTitleOutputType = z.infer<typeof notionSearchByTitleOutputSchema>;
+export type notionSearchByTitleFunction = ActionFunction<
+  notionSearchByTitleParamsType,
+  AuthParamsType,
+  notionSearchByTitleOutputType
+>;

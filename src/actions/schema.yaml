@@ -4712,3 +4712,41 @@ actions:
           error:
             type: string
             description: Error message if search failed
+  notion:
+    searchByTitle:
+      description: Search Notion pages and databases by title
+      scopes: []
+      parameters:
+        type: object
+        required: [query]
+        properties:
+          query:
+            type: string
+            description: The query to search for in Notion titles
+      output:
+        type: object
+        required: [success]
+        properties:
+          success:
+            type: boolean
+            description: Whether the search was successful
+          results:
+            type: array
+            description: List of matching Notion pages
+            items:
+              type: object
+              required: [id, url]
+              properties:
+                id:
+                  type: string
+                  description: The Notion page ID
+                title:
+                  type: string
+                  description: The page title
+                  nullable: true
+                url:
+                  type: string
+                  description: The URL to the Notion page
+          error:
+            type: string
+            description: Error message if search failed
