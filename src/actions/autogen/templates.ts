@@ -470,6 +470,7 @@ export const asanaGetTasksDetailsDefinition: ActionTemplate = {
             },
             due_at: {
               type: "string",
+              nullable: true,
             },
             assignee_name: {
               type: "string",
