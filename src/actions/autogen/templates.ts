@@ -1025,11 +1025,11 @@ export const kandjiGetFVRecoveryKeyForDeviceDefinition: ActionTemplate = {
   scopes: [],
   parameters: {
     type: "object",
-    required: ["serialNumber", "subdomain"],
+    required: ["userEmail", "subdomain"],
     properties: {
-      serialNumber: {
+      userEmail: {
         type: "string",
-        description: "The serial number of the device",
+        description: "The email of the user requesting the recovery key",
       },
       subdomain: {
         type: "string",

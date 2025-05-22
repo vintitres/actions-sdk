@@ -541,7 +541,7 @@ export type jiraGetJiraIssuesByQueryFunction = ActionFunction<
 >;
 
 export const kandjiGetFVRecoveryKeyForDeviceParamsSchema = z.object({
-  serialNumber: z.string().describe("The serial number of the device"),
+  userEmail: z.string().describe("The email of the user requesting the recovery key"),
   subdomain: z.string().describe("The subdomain of the Kandji account"),
 });
 
