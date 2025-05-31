@@ -187,6 +187,26 @@ import {
   googlemailSearchGmailMessagesParamsSchema,
   googlemailListGmailThreadsOutputSchema,
   googlemailListGmailThreadsParamsSchema,
+  oktaListOktaUsersParamsSchema,
+  oktaListOktaUsersOutputSchema,
+  oktaGetOktaUserParamsSchema,
+  oktaGetOktaUserOutputSchema,
+  oktaListOktaUserGroupsParamsSchema,
+  oktaListOktaUserGroupsOutputSchema,
+  oktaListOktaGroupsParamsSchema,
+  oktaListOktaGroupsOutputSchema,
+  oktaGetOktaGroupParamsSchema,
+  oktaGetOktaGroupOutputSchema,
+  oktaListOktaGroupMembersParamsSchema,
+  oktaListOktaGroupMembersOutputSchema,
+  oktaRemoveUserFromGroupParamsSchema,
+  oktaRemoveUserFromGroupOutputSchema,
+  oktaAddUserToGroupParamsSchema,
+  oktaAddUserToGroupOutputSchema,
+  oktaResetPasswordParamsSchema,
+  oktaResetPasswordOutputSchema,
+  oktaResetMFAParamsSchema,
+  oktaResetMFAOutputSchema,
 } from "./autogen/types";
 import validateAddress from "./providers/googlemaps/validateAddress";
 import add from "./providers/math/add";
@@ -284,6 +304,16 @@ import addGroupMember from "./providers/google-oauth/addGroupMember";
 import deleteGroupMember from "./providers/google-oauth/deleteGroupMember";
 import getJamfComputerInventory from "./providers/jamf/getJamfComputerInventory";
 import getJamfFileVaultRecoveryKey from "./providers/jamf/getJamfFileVaultRecoveryKey";
+import listOktaUsers from "./providers/okta/listOktaUsers";
+import getOktaUser from "./providers/okta/getOktaUser";
+import listOktaUserGroups from "./providers/okta/listOktaUserGroups";
+import listOktaGroups from "./providers/okta/listOktaGroups";
+import getOktaGroup from "./providers/okta/getOktaGroup";
+import listOktaGroupMembers from "./providers/okta/listOktaGroupMembers";
+import removeUserFromGroup from "./providers/okta/removeUserFromGroup";
+import addUserToGroup from "./providers/okta/addUserToGroup";
+import resetPassword from "./providers/okta/resetPassword";
+import resetMFA from "./providers/okta/resetMFA";
 
 interface ActionFunctionComponents {
   // eslint-disable-next-line
@@ -812,6 +842,58 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: searchByTitle,
       paramsSchema: notionSearchByTitleParamsSchema,
       outputSchema: notionSearchByTitleOutputSchema,
+    },
+  },
+  okta: {
+    listOktaUsers: {
+      fn: listOktaUsers,
+      paramsSchema: oktaListOktaUsersParamsSchema,
+      outputSchema: oktaListOktaUsersOutputSchema,
+    },
+    getOktaUser: {
+      fn: getOktaUser,
+      paramsSchema: oktaGetOktaUserParamsSchema,
+      outputSchema: oktaGetOktaUserOutputSchema,
+    },
+    listOktaUserGroups: {
+      fn: listOktaUserGroups,
+      paramsSchema: oktaListOktaUserGroupsParamsSchema,
+      outputSchema: oktaListOktaUserGroupsOutputSchema,
+    },
+    listOktaGroups: {
+      fn: listOktaGroups,
+      paramsSchema: oktaListOktaGroupsParamsSchema,
+      outputSchema: oktaListOktaGroupsOutputSchema,
+    },
+    getOktaGroup: {
+      fn: getOktaGroup,
+      paramsSchema: oktaGetOktaGroupParamsSchema,
+      outputSchema: oktaGetOktaGroupOutputSchema,
+    },
+    listOktaGroupMembers: {
+      fn: listOktaGroupMembers,
+      paramsSchema: oktaListOktaGroupMembersParamsSchema,
+      outputSchema: oktaListOktaGroupMembersOutputSchema,
+    },
+    removeUserFromGroup: {
+      fn: removeUserFromGroup,
+      paramsSchema: oktaRemoveUserFromGroupParamsSchema,
+      outputSchema: oktaRemoveUserFromGroupOutputSchema,
+    },
+    addUserToGroup: {
+      fn: addUserToGroup,
+      paramsSchema: oktaAddUserToGroupParamsSchema,
+      outputSchema: oktaAddUserToGroupOutputSchema,
+    },
+    resetPassword: {
+      fn: resetPassword,
+      paramsSchema: oktaResetPasswordParamsSchema,
+      outputSchema: oktaResetPasswordOutputSchema,
+    },
+    resetMFA: {
+      fn: resetMFA,
+      paramsSchema: oktaResetMFAParamsSchema,
+      outputSchema: oktaResetMFAOutputSchema,
     },
   },
 };
