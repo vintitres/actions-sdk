@@ -99,6 +99,20 @@ import {
   googleOauthSearchGmailMessagesOutputSchema,
   googleOauthListGmailThreadsParamsSchema,
   googleOauthListGmailThreadsOutputSchema,
+  googleOauthListGroupsOutputSchema,
+  googleOauthListGroupsParamsSchema,
+  googleOauthGetGroupOutputSchema,
+  googleOauthGetGroupParamsSchema,
+  googleOauthListGroupMembersOutputSchema,
+  googleOauthListGroupMembersParamsSchema,
+  googleOauthHasGroupMemberOutputSchema,
+  googleOauthHasGroupMemberParamsSchema,
+  googleOauthAddGroupMemberOutputSchema,
+  googleOauthAddGroupMemberParamsSchema,
+  googleOauthDeleteGroupMemberOutputSchema,
+  googleOauthDeleteGroupMemberParamsSchema,
+  gongGetGongTranscriptsParamsSchema,
+  gongGetGongTranscriptsOutputSchema,
   ashbyCreateNoteParamsSchema,
   ashbyCreateNoteOutputSchema,
   ashbyGetCandidateInfoParamsSchema,
@@ -252,7 +266,6 @@ import createRecord from "./providers/salesforce/createRecord";
 import getTopNSearchResultUrls from "./providers/bing/getTopNSearchResultUrls";
 import getGongTranscripts from "./providers/gong/getGongTranscripts";
 import searchDriveByKeywords from "./providers/google-oauth/searchDriveByKeywords";
-import { gongGetGongTranscriptsParamsSchema, gongGetGongTranscriptsOutputSchema } from "./autogen/types";
 import getFVRecoveryKeyForDevice from "./providers/kandji/getFVRecoveryKeyForDevice";
 import listAsanaTasksByProject from "./providers/asana/listAsanaTasksByProject";
 import getTasksDetails from "./providers/asana/getTasksDetails";
@@ -262,6 +275,12 @@ import listGmailThreads from "./providers/google-oauth/listGmailThreads";
 // import listCalendarEvents from "./providers/google-oauth/listCalendarEvents";
 // import updateCalendarEvent from "./providers/google-oauth/updateCalendarEvent";
 // import deleteCalendarEvent from "./providers/google-oauth/deleteCalendarEvent";
+import listGroups from "./providers/google-oauth/listGroups";
+import getGroup from "./providers/google-oauth/getGroup";
+import listGroupMembers from "./providers/google-oauth/listGroupMembers";
+import hasGroupMember from "./providers/google-oauth/hasGroupMember";
+import addGroupMember from "./providers/google-oauth/addGroupMember";
+import deleteGroupMember from "./providers/google-oauth/deleteGroupMember";
 
 interface ActionFunctionComponents {
   // eslint-disable-next-line
@@ -582,6 +601,36 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: deleteCalendarEvent,
       paramsSchema: googleOauthDeleteCalendarEventParamsSchema,
       outputSchema: googleOauthDeleteCalendarEventOutputSchema,
+    },
+    listGroups: {
+      fn: listGroups,
+      paramsSchema: googleOauthListGroupsParamsSchema,
+      outputSchema: googleOauthListGroupsOutputSchema,
+    },
+    getGroup: {
+      fn: getGroup,
+      paramsSchema: googleOauthGetGroupParamsSchema,
+      outputSchema: googleOauthGetGroupOutputSchema,
+    },
+    listGroupMembers: {
+      fn: listGroupMembers,
+      paramsSchema: googleOauthListGroupMembersParamsSchema,
+      outputSchema: googleOauthListGroupMembersOutputSchema,
+    },
+    hasGroupMember: {
+      fn: hasGroupMember,
+      paramsSchema: googleOauthHasGroupMemberParamsSchema,
+      outputSchema: googleOauthHasGroupMemberOutputSchema,
+    },
+    addGroupMember: {
+      fn: addGroupMember,
+      paramsSchema: googleOauthAddGroupMemberParamsSchema,
+      outputSchema: googleOauthAddGroupMemberOutputSchema,
+    },
+    deleteGroupMember: {
+      fn: deleteGroupMember,
+      paramsSchema: googleOauthDeleteGroupMemberParamsSchema,
+      outputSchema: googleOauthDeleteGroupMemberOutputSchema,
     },
   },
   x: {

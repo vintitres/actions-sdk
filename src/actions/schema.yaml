@@ -4041,6 +4041,204 @@ actions:
           error:
             type: string
             description: Error message if search failed
+    listGroups:
+      description: List all Google Groups for the customer.
+      scopes:
+        - https://www.googleapis.com/auth/admin.directory.group.readonly
+      parameters:
+        type: object
+        required: []
+        properties: 
+          maxResults:
+            type: integer
+            description: The maximum number of groups to return (max allowed is 200)
+      output:
+        type: object
+        required: [success, groups]
+        properties:
+          success:
+            type: boolean
+            description: Whether the groups were listed successfully
+          groups:
+            type: array
+            description: The list of Google Groups
+            items:
+              type: object
+              required: [id, email, name]
+              properties:
+                id:
+                  type: string
+                  description: The unique ID of the group
+                email:
+                  type: string
+                  description: The email address of the group
+                name:
+                  type: string
+                  description: The name of the group
+                description:
+                  type: string
+                  description: The description of the group
+          error:
+            type: string
+            description: The error that occurred if the groups could not be listed
+    getGroup:
+      description: Get details for a specific Google Group by group email or ID.
+      scopes:
+        - https://www.googleapis.com/auth/admin.directory.group.readonly
+      parameters:
+        type: object
+        required: [groupKey]
+        properties:
+          groupKey:
+            type: string
+            description: The group's email address or unique group ID
+      output:
+        type: object
+        required: [success, group]
+        properties:
+          success:
+            type: boolean
+            description: Whether the group was retrieved successfully
+          group:
+            type: object
+            required: [id, email, name]
+            properties:
+              id:
+                type: string
+                description: The unique ID of the group
+              email:
+                type: string
+                description: The email address of the group
+              name:
+                type: string
+                description: The name of the group
+              description:
+                type: string
+                description: The description of the group
+          error:
+            type: string
+            description: The error that occurred if the group could not be retrieved
+    listGroupMembers:
+      description: List all members of a Google Group.
+      scopes:
+        - https://www.googleapis.com/auth/admin.directory.group.member.readonly
+      parameters:
+        type: object
+        required: [groupKey]
+        properties:
+          groupKey:
+            type: string
+            description: The group's email address or unique group ID
+          maxResults:
+            type: integer
+            description: The maximum number of members to return (max allowed is 200)
+      output:
+        type: object
+        required: [success, members]
+        properties:
+          success:
+            type: boolean
+            description: Whether the members were listed successfully
+          members:
+            type: array
+            description: The list of group members
+            items:
+              type: object
+              required: [id, email, role, type]
+              properties:
+                id:
+                  type: string
+                  description: The unique ID of the member
+                email:
+                  type: string
+                  description: The email address of the member
+                role:
+                  type: string
+                  description: The role of the member in the group (OWNER, MANAGER, MEMBER)
+                type:
+                  type: string
+                  description: The type of the member (USER, GROUP)
+          error:
+            type: string
+            description: The error that occurred if the members could not be listed
+    hasGroupMember:
+      description: Check if a user is a member of a Google Group.
+      scopes:
+        - https://www.googleapis.com/auth/admin.directory.group.member.readonly
+      parameters:
+        type: object
+        required: [groupKey, memberKey]
+        properties:
+          groupKey:
+            type: string
+            description: The group's email address or unique group ID
+          memberKey:
+            type: string
+            description: The member's email address or unique member ID
+      output:
+        type: object
+        required: [success, isMember]
+        properties:
+          success:
+            type: boolean
+            description: Whether the check was performed successfully
+          isMember:
+            type: boolean
+            description: Whether the user is a member of the group
+          error:
+            type: string
+            description: The error that occurred if the check could not be performed
+    addGroupMember:
+      description: Add a member to a Google Group.
+      scopes:
+        - https://www.googleapis.com/auth/admin.directory.group.member
+      parameters:
+        type: object
+        required: [groupKey, email]
+        properties:
+          groupKey:
+            type: string
+            description: The group's email address or unique group ID
+          email:
+            type: string
+            description: The email address of the user to add
+      output:
+        type: object
+        required: [success, memberID]
+        properties:
+          success:
+            type: boolean
+            description: Whether the member was added successfully
+          memberID:
+            type: string
+            description: The unique ID of the member
+          error:
+            type: string
+            description: The error that occurred if the member could not be added
+    deleteGroupMember:
+      description: Remove a member from a Google Group.
+      scopes:
+        - https://www.googleapis.com/auth/admin.directory.group.member
+      parameters:
+        type: object
+        required: [groupKey, memberKey]
+        properties:
+          groupKey:
+            type: string
+            description: The group's email address or unique group ID
+          memberKey:
+            type: string
+            description: The member's email address or unique member ID
+      output:
+        type: object
+        required: [success]
+        properties:
+          success:
+            type: boolean
+            description: Whether the member was removed successfully
+          error:
+            type: string
+            description: The error that occurred if the member could not be removed
   gong:
     getGongTranscripts:
       description: Get sales call transcripts from Gong

@@ -48,6 +48,12 @@ import {
   googleOauthSearchDriveByKeywordsDefinition,
   googleOauthSearchGmailMessagesDefinition,
   googleOauthListGmailThreadsDefinition,
+  googleOauthListGroupsDefinition,
+  googleOauthGetGroupDefinition,
+  googleOauthListGroupMembersDefinition,
+  googleOauthHasGroupMemberDefinition,
+  googleOauthAddGroupMemberDefinition,
+  googleOauthDeleteGroupMemberDefinition,
   salesforceUpdateRecordDefinition,
   salesforceCreateCaseDefinition,
   salesforceGenerateSalesReportDefinition,
@@ -280,5 +286,16 @@ export const ACTION_GROUPS: ActionGroups = {
   NOTION: {
     description: "Actions for interacting with Notion",
     actions: [notionSearchByTitleDefinition],
+  },
+  GOOGLE_GROUPS: {
+    description: "Google Workspace Groups management actions",
+    actions: [
+      googleOauthListGroupsDefinition,
+      googleOauthGetGroupDefinition,
+      googleOauthListGroupMembersDefinition,
+      googleOauthHasGroupMemberDefinition,
+      googleOauthAddGroupMemberDefinition,
+      googleOauthDeleteGroupMemberDefinition,
+    ],
   },
 };

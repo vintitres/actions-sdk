@@ -2996,6 +2996,146 @@ export type googleOauthListGmailThreadsFunction = ActionFunction<
   googleOauthListGmailThreadsOutputType
 >;
 
+export const googleOauthListGroupsParamsSchema = z.object({
+  maxResults: z.number().int().describe("The maximum number of groups to return (max allowed is 200)").optional(),
+});
+
+export type googleOauthListGroupsParamsType = z.infer<typeof googleOauthListGroupsParamsSchema>;
+
+export const googleOauthListGroupsOutputSchema = z.object({
+  success: z.boolean().describe("Whether the groups were listed successfully"),
+  groups: z
+    .array(
+      z.object({
+        id: z.string().describe("The unique ID of the group"),
+        email: z.string().describe("The email address of the group"),
+        name: z.string().describe("The name of the group"),
+        description: z.string().describe("The description of the group").optional(),
+      }),
+    )
+    .describe("The list of Google Groups"),
+  error: z.string().describe("The error that occurred if the groups could not be listed").optional(),
+});
+
+export type googleOauthListGroupsOutputType = z.infer<typeof googleOauthListGroupsOutputSchema>;
+export type googleOauthListGroupsFunction = ActionFunction<
+  googleOauthListGroupsParamsType,
+  AuthParamsType,
+  googleOauthListGroupsOutputType
+>;
+
+export const googleOauthGetGroupParamsSchema = z.object({
+  groupKey: z.string().describe("The group's email address or unique group ID"),
+});
+
+export type googleOauthGetGroupParamsType = z.infer<typeof googleOauthGetGroupParamsSchema>;
+
+export const googleOauthGetGroupOutputSchema = z.object({
+  success: z.boolean().describe("Whether the group was retrieved successfully"),
+  group: z.object({
+    id: z.string().describe("The unique ID of the group"),
+    email: z.string().describe("The email address of the group"),
+    name: z.string().describe("The name of the group"),
+    description: z.string().describe("The description of the group").optional(),
+  }),
+  error: z.string().describe("The error that occurred if the group could not be retrieved").optional(),
+});
+
+export type googleOauthGetGroupOutputType = z.infer<typeof googleOauthGetGroupOutputSchema>;
+export type googleOauthGetGroupFunction = ActionFunction<
+  googleOauthGetGroupParamsType,
+  AuthParamsType,
+  googleOauthGetGroupOutputType
+>;
+
+export const googleOauthListGroupMembersParamsSchema = z.object({
+  groupKey: z.string().describe("The group's email address or unique group ID"),
+  maxResults: z.number().int().describe("The maximum number of members to return (max allowed is 200)").optional(),
+});
+
+export type googleOauthListGroupMembersParamsType = z.infer<typeof googleOauthListGroupMembersParamsSchema>;
+
+export const googleOauthListGroupMembersOutputSchema = z.object({
+  success: z.boolean().describe("Whether the members were listed successfully"),
+  members: z
+    .array(
+      z.object({
+        id: z.string().describe("The unique ID of the member"),
+        email: z.string().describe("The email address of the member"),
+        role: z.string().describe("The role of the member in the group (OWNER, MANAGER, MEMBER)"),
+        type: z.string().describe("The type of the member (USER, GROUP)"),
+      }),
+    )
+    .describe("The list of group members"),
+  error: z.string().describe("The error that occurred if the members could not be listed").optional(),
+});
+
+export type googleOauthListGroupMembersOutputType = z.infer<typeof googleOauthListGroupMembersOutputSchema>;
+export type googleOauthListGroupMembersFunction = ActionFunction<
+  googleOauthListGroupMembersParamsType,
+  AuthParamsType,
+  googleOauthListGroupMembersOutputType
+>;
+
+export const googleOauthHasGroupMemberParamsSchema = z.object({
+  groupKey: z.string().describe("The group's email address or unique group ID"),
+  memberKey: z.string().describe("The member's email address or unique member ID"),
+});
+
+export type googleOauthHasGroupMemberParamsType = z.infer<typeof googleOauthHasGroupMemberParamsSchema>;
+
+export const googleOauthHasGroupMemberOutputSchema = z.object({
+  success: z.boolean().describe("Whether the check was performed successfully"),
+  isMember: z.boolean().describe("Whether the user is a member of the group"),
+  error: z.string().describe("The error that occurred if the check could not be performed").optional(),
+});
+
+export type googleOauthHasGroupMemberOutputType = z.infer<typeof googleOauthHasGroupMemberOutputSchema>;
+export type googleOauthHasGroupMemberFunction = ActionFunction<
+  googleOauthHasGroupMemberParamsType,
+  AuthParamsType,
+  googleOauthHasGroupMemberOutputType
+>;
+
+export const googleOauthAddGroupMemberParamsSchema = z.object({
+  groupKey: z.string().describe("The group's email address or unique group ID"),
+  email: z.string().describe("The email address of the user to add"),
+});
+
+export type googleOauthAddGroupMemberParamsType = z.infer<typeof googleOauthAddGroupMemberParamsSchema>;
+
+export const googleOauthAddGroupMemberOutputSchema = z.object({
+  success: z.boolean().describe("Whether the member was added successfully"),
+  memberID: z.string().describe("The unique ID of the member"),
+  error: z.string().describe("The error that occurred if the member could not be added").optional(),
+});
+
+export type googleOauthAddGroupMemberOutputType = z.infer<typeof googleOauthAddGroupMemberOutputSchema>;
+export type googleOauthAddGroupMemberFunction = ActionFunction<
+  googleOauthAddGroupMemberParamsType,
+  AuthParamsType,
+  googleOauthAddGroupMemberOutputType
+>;
+
+export const googleOauthDeleteGroupMemberParamsSchema = z.object({
+  groupKey: z.string().describe("The group's email address or unique group ID"),
+  memberKey: z.string().describe("The member's email address or unique member ID"),
+});
+
+export type googleOauthDeleteGroupMemberParamsType = z.infer<typeof googleOauthDeleteGroupMemberParamsSchema>;
+
+export const googleOauthDeleteGroupMemberOutputSchema = z.object({
+  success: z.boolean().describe("Whether the member was removed successfully"),
+  error: z.string().describe("The error that occurred if the member could not be removed").optional(),
+});
+
+export type googleOauthDeleteGroupMemberOutputType = z.infer<typeof googleOauthDeleteGroupMemberOutputSchema>;
+export type googleOauthDeleteGroupMemberFunction = ActionFunction<
+  googleOauthDeleteGroupMemberParamsType,
+  AuthParamsType,
+  googleOauthDeleteGroupMemberOutputType
+>;
+
 export const gongGetGongTranscriptsParamsSchema = z.object({
   userRole: z.string().describe("The role of users whose transcripts are being fetched"),
   trackers: z
