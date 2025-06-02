@@ -1780,6 +1780,148 @@ export type googleOauthScheduleCalendarMeetingFunction = ActionFunction<
   googleOauthScheduleCalendarMeetingOutputType
 >;
 
+export const googleOauthListCalendarsParamsSchema = z.object({
+  maxResults: z.number().int().describe("Maximum number of calendars to return, defaults to 250").optional(),
+});
+
+export type googleOauthListCalendarsParamsType = z.infer<typeof googleOauthListCalendarsParamsSchema>;
+
+export const googleOauthListCalendarsOutputSchema = z.object({
+  success: z.boolean().describe("Whether the calendars were listed successfully"),
+  calendars: z
+    .array(z.object({ id: z.string().describe("The calendar ID"), summary: z.string().describe("The calendar name") }))
+    .describe("List of calendars"),
+  error: z.string().describe("Error message if listing failed").optional(),
+});
+
+export type googleOauthListCalendarsOutputType = z.infer<typeof googleOauthListCalendarsOutputSchema>;
+export type googleOauthListCalendarsFunction = ActionFunction<
+  googleOauthListCalendarsParamsType,
+  AuthParamsType,
+  googleOauthListCalendarsOutputType
+>;
+
+export const googleOauthListCalendarEventsParamsSchema = z.object({
+  calendarId: z.string().describe("The ID of the calendar to list events from"),
+  query: z.string().describe("Optional free-text search query to filter events").optional(),
+  maxResults: z.number().int().describe("Maximum number of events to return, defaults to 250").optional(),
+});
+
+export type googleOauthListCalendarEventsParamsType = z.infer<typeof googleOauthListCalendarEventsParamsSchema>;
+
+export const googleOauthListCalendarEventsOutputSchema = z.object({
+  success: z.boolean().describe("Whether the events were listed successfully"),
+  events: z
+    .array(
+      z
+        .object({
+          id: z.string().describe("Event unique identifier").optional(),
+          status: z.string().describe("Status of the event (e.g., confirmed, cancelled)").optional(),
+          url: z.string().describe("Link to the event in the Google Calendar web UI").optional(),
+          title: z.string().describe("Title of the event").optional(),
+          description: z.string().describe("Description of the event").optional(),
+          location: z.string().describe("Geographic location of the event as free-form text").optional(),
+          start: z.string().describe("Start date/time (for timed events, RFC3339 timestamp)").optional(),
+          end: z.string().describe("End date/time (for timed events, RFC3339 timestamp)").optional(),
+          attendees: z
+            .array(
+              z.object({
+                email: z.string().describe("The attendee's email address").optional(),
+                displayName: z.string().describe("The attendee's name").optional(),
+                responseStatus: z
+                  .string()
+                  .describe("The attendee's response status (accepted, declined, etc.)")
+                  .optional(),
+              }),
+            )
+            .describe("List of attendees")
+            .optional(),
+          organizer: z
+            .object({
+              email: z.string().describe("The organizer's email address").optional(),
+              displayName: z.string().describe("The organizer's name").optional(),
+            })
+            .describe("The organizer of the event")
+            .optional(),
+          hangoutLink: z.string().describe("Google Meet link for the event, if available").optional(),
+          created: z.string().describe("Creation time of the event (RFC3339 timestamp)").optional(),
+          updated: z.string().describe("Last modification time of the event (RFC3339 timestamp)").optional(),
+        })
+        .describe("A calendar event"),
+    )
+    .describe("List of events"),
+  error: z.string().describe("Error message if listing failed").optional(),
+});
+
+export type googleOauthListCalendarEventsOutputType = z.infer<typeof googleOauthListCalendarEventsOutputSchema>;
+export type googleOauthListCalendarEventsFunction = ActionFunction<
+  googleOauthListCalendarEventsParamsType,
+  AuthParamsType,
+  googleOauthListCalendarEventsOutputType
+>;
+
+export const googleOauthUpdateCalendarEventParamsSchema = z.object({
+  calendarId: z.string().describe("The ID of the calendar containing the event"),
+  eventId: z.string().describe("The ID of the event to update"),
+  updates: z
+    .object({
+      title: z.string().describe("The new title of the event").optional(),
+      description: z.string().describe("The new description of the event").optional(),
+      start: z.string().describe("The new start date/time (RFC3339 timestamp)").optional(),
+      end: z.string().describe("The new end date/time (RFC3339 timestamp)").optional(),
+      location: z.string().describe("The new location of the event").optional(),
+      attendees: z
+        .array(z.string().describe("The email of the attendee"))
+        .describe("The new list of attendees")
+        .optional(),
+      status: z.string().describe("The new status of the event (e.g., confirmed, cancelled)").optional(),
+      organizer: z
+        .object({
+          email: z.string().describe("The organizer's email address").optional(),
+          displayName: z.string().describe("The organizer's name").optional(),
+        })
+        .describe("The new organizer of the event")
+        .optional(),
+    })
+    .describe("The fields to update on the event")
+    .optional(),
+});
+
+export type googleOauthUpdateCalendarEventParamsType = z.infer<typeof googleOauthUpdateCalendarEventParamsSchema>;
+
+export const googleOauthUpdateCalendarEventOutputSchema = z.object({
+  success: z.boolean().describe("Whether the event was updated successfully"),
+  eventId: z.string().describe("The ID of the updated event").optional(),
+  eventUrl: z.string().describe("The URL to access the updated event").optional(),
+  error: z.string().describe("The error that occurred if the event was not updated successfully").optional(),
+});
+
+export type googleOauthUpdateCalendarEventOutputType = z.infer<typeof googleOauthUpdateCalendarEventOutputSchema>;
+export type googleOauthUpdateCalendarEventFunction = ActionFunction<
+  googleOauthUpdateCalendarEventParamsType,
+  AuthParamsType,
+  googleOauthUpdateCalendarEventOutputType
+>;
+
+export const googleOauthDeleteCalendarEventParamsSchema = z.object({
+  calendarId: z.string().describe("The ID of the calendar containing the event"),
+  eventId: z.string().describe("The ID of the event to delete"),
+});
+
+export type googleOauthDeleteCalendarEventParamsType = z.infer<typeof googleOauthDeleteCalendarEventParamsSchema>;
+
+export const googleOauthDeleteCalendarEventOutputSchema = z.object({
+  success: z.boolean().describe("Whether the event was deleted successfully"),
+  error: z.string().describe("The error that occurred if the event was not deleted successfully").optional(),
+});
+
+export type googleOauthDeleteCalendarEventOutputType = z.infer<typeof googleOauthDeleteCalendarEventOutputSchema>;
+export type googleOauthDeleteCalendarEventFunction = ActionFunction<
+  googleOauthDeleteCalendarEventParamsType,
+  AuthParamsType,
+  googleOauthDeleteCalendarEventOutputType
+>;
+
 export const googleOauthCreateSpreadsheetParamsSchema = z.object({
   title: z.string().describe("The title of the new spreadsheet"),
   sheets: z

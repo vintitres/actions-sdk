@@ -37,6 +37,10 @@ import {
   lookerEnableUserByEmailDefinition,
   googleOauthUpdateDocDefinition,
   googleOauthScheduleCalendarMeetingDefinition,
+  googleOauthListCalendarsDefinition,
+  googleOauthListCalendarEventsDefinition,
+  googleOauthUpdateCalendarEventDefinition,
+  googleOauthDeleteCalendarEventDefinition,
   googleOauthCreateSpreadsheetDefinition,
   googleOauthUpdateSpreadsheetDefinition,
   googleOauthCreatePresentationDefinition,
@@ -132,7 +136,13 @@ export const ACTION_GROUPS: ActionGroups = {
   },
   GOOGLE_CALENDAR: {
     description: "Actions for interacting with Google Calendar",
-    actions: [googleOauthScheduleCalendarMeetingDefinition],
+    actions: [
+      googleOauthScheduleCalendarMeetingDefinition,
+      googleOauthListCalendarsDefinition,
+      googleOauthListCalendarEventsDefinition,
+      googleOauthUpdateCalendarEventDefinition,
+      googleOauthDeleteCalendarEventDefinition,
+    ],
   },
   GMAIL: {
     description: "Actions for interacting with Gmail",

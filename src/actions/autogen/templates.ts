@@ -3410,6 +3410,309 @@ export const googleOauthScheduleCalendarMeetingDefinition: ActionTemplate = {
   name: "scheduleCalendarMeeting",
   provider: "googleOauth",
 };
+export const googleOauthListCalendarsDefinition: ActionTemplate = {
+  description: "List all Google Calendars for the authenticated user",
+  scopes: ["https://www.googleapis.com/auth/calendar.readonly"],
+  parameters: {
+    type: "object",
+    required: [],
+    properties: {
+      maxResults: {
+        type: "integer",
+        description: "Maximum number of calendars to return, defaults to 250",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success", "calendars"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the calendars were listed successfully",
+      },
+      calendars: {
+        type: "array",
+        description: "List of calendars",
+        items: {
+          type: "object",
+          required: ["id", "summary"],
+          properties: {
+            id: {
+              type: "string",
+              description: "The calendar ID",
+            },
+            summary: {
+              type: "string",
+              description: "The calendar name",
+            },
+          },
+        },
+      },
+      error: {
+        type: "string",
+        description: "Error message if listing failed",
+      },
+    },
+  },
+  name: "listCalendars",
+  provider: "googleOauth",
+};
+export const googleOauthListCalendarEventsDefinition: ActionTemplate = {
+  description: "List events on a Google Calendar, optionally searching by query.",
+  scopes: ["https://www.googleapis.com/auth/calendar.readonly"],
+  parameters: {
+    type: "object",
+    required: ["calendarId"],
+    properties: {
+      calendarId: {
+        type: "string",
+        description: "The ID of the calendar to list events from",
+      },
+      query: {
+        type: "string",
+        description: "Optional free-text search query to filter events",
+      },
+      maxResults: {
+        type: "integer",
+        description: "Maximum number of events to return, defaults to 250",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success", "events"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the events were listed successfully",
+      },
+      events: {
+        type: "array",
+        description: "List of events",
+        items: {
+          type: "object",
+          description: "A calendar event",
+          properties: {
+            id: {
+              type: "string",
+              description: "Event unique identifier",
+            },
+            status: {
+              type: "string",
+              description: "Status of the event (e.g., confirmed, cancelled)",
+            },
+            url: {
+              type: "string",
+              description: "Link to the event in the Google Calendar web UI",
+            },
+            title: {
+              type: "string",
+              description: "Title of the event",
+            },
+            description: {
+              type: "string",
+              description: "Description of the event",
+            },
+            location: {
+              type: "string",
+              description: "Geographic location of the event as free-form text",
+            },
+            start: {
+              type: "string",
+              description: "Start date/time (for timed events, RFC3339 timestamp)",
+            },
+            end: {
+              type: "string",
+              description: "End date/time (for timed events, RFC3339 timestamp)",
+            },
+            attendees: {
+              type: "array",
+              description: "List of attendees",
+              items: {
+                type: "object",
+                properties: {
+                  email: {
+                    type: "string",
+                    description: "The attendee's email address",
+                  },
+                  displayName: {
+                    type: "string",
+                    description: "The attendee's name",
+                  },
+                  responseStatus: {
+                    type: "string",
+                    description: "The attendee's response status (accepted, declined, etc.)",
+                  },
+                },
+              },
+            },
+            organizer: {
+              type: "object",
+              description: "The organizer of the event",
+              properties: {
+                email: {
+                  type: "string",
+                  description: "The organizer's email address",
+                },
+                displayName: {
+                  type: "string",
+                  description: "The organizer's name",
+                },
+              },
+            },
+            hangoutLink: {
+              type: "string",
+              description: "Google Meet link for the event, if available",
+            },
+            created: {
+              type: "string",
+              description: "Creation time of the event (RFC3339 timestamp)",
+            },
+            updated: {
+              type: "string",
+              description: "Last modification time of the event (RFC3339 timestamp)",
+            },
+          },
+        },
+      },
+      error: {
+        type: "string",
+        description: "Error message if listing failed",
+      },
+    },
+  },
+  name: "listCalendarEvents",
+  provider: "googleOauth",
+};
+export const googleOauthUpdateCalendarEventDefinition: ActionTemplate = {
+  description: "Update an event on a Google Calendar using OAuth authentication",
+  scopes: ["https://www.googleapis.com/auth/calendar"],
+  parameters: {
+    type: "object",
+    required: ["calendarId", "eventId"],
+    properties: {
+      calendarId: {
+        type: "string",
+        description: "The ID of the calendar containing the event",
+      },
+      eventId: {
+        type: "string",
+        description: "The ID of the event to update",
+      },
+      updates: {
+        type: "object",
+        description: "The fields to update on the event",
+        properties: {
+          title: {
+            type: "string",
+            description: "The new title of the event",
+          },
+          description: {
+            type: "string",
+            description: "The new description of the event",
+          },
+          start: {
+            type: "string",
+            description: "The new start date/time (RFC3339 timestamp)",
+          },
+          end: {
+            type: "string",
+            description: "The new end date/time (RFC3339 timestamp)",
+          },
+          location: {
+            type: "string",
+            description: "The new location of the event",
+          },
+          attendees: {
+            type: "array",
+            description: "The new list of attendees",
+            items: {
+              type: "string",
+              description: "The email of the attendee",
+            },
+          },
+          status: {
+            type: "string",
+            description: "The new status of the event (e.g., confirmed, cancelled)",
+          },
+          organizer: {
+            type: "object",
+            description: "The new organizer of the event",
+            properties: {
+              email: {
+                type: "string",
+                description: "The organizer's email address",
+              },
+              displayName: {
+                type: "string",
+                description: "The organizer's name",
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the event was updated successfully",
+      },
+      eventId: {
+        type: "string",
+        description: "The ID of the updated event",
+      },
+      eventUrl: {
+        type: "string",
+        description: "The URL to access the updated event",
+      },
+      error: {
+        type: "string",
+        description: "The error that occurred if the event was not updated successfully",
+      },
+    },
+  },
+  name: "updateCalendarEvent",
+  provider: "googleOauth",
+};
+export const googleOauthDeleteCalendarEventDefinition: ActionTemplate = {
+  description: "Delete an event from a Google Calendar using OAuth authentication",
+  scopes: ["https://www.googleapis.com/auth/calendar"],
+  parameters: {
+    type: "object",
+    required: ["calendarId", "eventId"],
+    properties: {
+      calendarId: {
+        type: "string",
+        description: "The ID of the calendar containing the event",
+      },
+      eventId: {
+        type: "string",
+        description: "The ID of the event to delete",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the event was deleted successfully",
+      },
+      error: {
+        type: "string",
+        description: "The error that occurred if the event was not deleted successfully",
+      },
+    },
+  },
+  name: "deleteCalendarEvent",
+  provider: "googleOauth",
+};
 export const googleOauthCreateSpreadsheetDefinition: ActionTemplate = {
   description: "Create a new Google Spreadsheet using OAuth authentication",
   scopes: [],
