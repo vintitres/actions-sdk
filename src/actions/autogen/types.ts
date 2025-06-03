@@ -3404,6 +3404,10 @@ export type oktaListOktaUsersFunction = ActionFunction<
 
 export const oktaResetMFAParamsSchema = z.object({
   userId: z.string().describe("The ID of the user whose MFA needs to be reset."),
+  factorId: z
+    .string()
+    .describe("Optional. The ID of the specific factor to reset. If not provided, all factors will be reset.")
+    .optional(),
 });
 
 export type oktaResetMFAParamsType = z.infer<typeof oktaResetMFAParamsSchema>;
@@ -3415,6 +3419,48 @@ export const oktaResetMFAOutputSchema = z.object({
 
 export type oktaResetMFAOutputType = z.infer<typeof oktaResetMFAOutputSchema>;
 export type oktaResetMFAFunction = ActionFunction<oktaResetMFAParamsType, AuthParamsType, oktaResetMFAOutputType>;
+
+export const oktaListMFAParamsSchema = z.object({
+  userId: z.string().describe("The ID of the user whose MFA factors need to be listed."),
+});
+
+export type oktaListMFAParamsType = z.infer<typeof oktaListMFAParamsSchema>;
+
+export const oktaListMFAOutputSchema = z.object({
+  success: z.boolean().describe("Whether the MFA factors were successfully retrieved."),
+  factors: z
+    .array(
+      z.object({
+        id: z.string().describe("The ID of the MFA factor."),
+        factorType: z
+          .string()
+          .describe("The type of the MFA factor (e.g., question, sms, token:software:totp).")
+          .optional(),
+        provider: z.string().describe("The provider of the MFA factor (e.g., OKTA).").optional(),
+        vendorName: z.string().describe("The vendor name of the MFA factor.").optional(),
+        status: z.string().describe("The status of the MFA factor (e.g., ACTIVE, PENDING_ACTIVATION).").optional(),
+        created: z.string().describe("The timestamp when the MFA factor was created.").optional(),
+        lastUpdated: z.string().describe("The timestamp when the MFA factor was last updated.").optional(),
+        profile: z
+          .object({})
+          .catchall(z.any())
+          .describe("Additional profile information for the MFA factor.")
+          .optional(),
+        _links: z.object({}).catchall(z.any()).describe("Links related to the MFA factor.").optional(),
+        _embedded: z
+          .object({})
+          .catchall(z.any())
+          .describe("Embedded data for the MFA factor (e.g., activation details).")
+          .optional(),
+      }),
+    )
+    .describe("List of MFA factors for the user.")
+    .optional(),
+  error: z.string().describe("Error message if the MFA factors could not be retrieved.").optional(),
+});
+
+export type oktaListMFAOutputType = z.infer<typeof oktaListMFAOutputSchema>;
+export type oktaListMFAFunction = ActionFunction<oktaListMFAParamsType, AuthParamsType, oktaListMFAOutputType>;
 
 export const oktaResetPasswordParamsSchema = z.object({
   userId: z.string().describe("The ID of the user whose password needs to be reset."),

@@ -102,6 +102,7 @@ import {
   oktaAddUserToGroupDefinition,
   oktaResetPasswordDefinition,
   oktaResetMFADefinition,
+  oktaListMFADefinition,
 } from "../actions/autogen/templates";
 import type { ActionTemplate } from "../actions/parse";
 
@@ -322,6 +323,7 @@ export const ACTION_GROUPS: ActionGroups = {
       oktaAddUserToGroupDefinition,
       oktaResetPasswordDefinition,
       oktaResetMFADefinition,
+      oktaListMFADefinition,
     ],
   },
 };

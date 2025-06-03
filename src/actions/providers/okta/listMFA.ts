@@ -2,19 +2,19 @@ import type { AxiosRequestConfig } from "axios";
 import { AxiosError } from "axios";
 import type {
   AuthParamsType,
-  oktaResetMFAFunction,
-  oktaResetMFAOutputType,
-  oktaResetMFAParamsType,
+  oktaListMFAFunction,
+  oktaListMFAOutputType,
+  oktaListMFAParamsType,
 } from "../../autogen/types";
 import { axiosClient } from "../../util/axiosClient";
 
-const resetMFA: oktaResetMFAFunction = async ({
+const listMFA: oktaListMFAFunction = async ({
   authParams,
   params,
 }: {
   authParams: AuthParamsType;
-  params: oktaResetMFAParamsType;
-}): Promise<oktaResetMFAOutputType> => {
+  params: oktaListMFAParamsType;
+}): Promise<oktaListMFAOutputType> => {
   const { authToken, baseUrl } = authParams;
 
   if (!authToken || !baseUrl) {
@@ -25,41 +25,26 @@ const resetMFA: oktaResetMFAFunction = async ({
   }
 
   try {
-    let endpointUrl: string;
-    let method: "POST" | "DELETE";
-    if (params.factorId) {
-      endpointUrl = new URL(`/api/v1/users/${params.userId}/factors/${params.factorId}`, baseUrl).toString();
-      method = "DELETE";
-    } else {
-      endpointUrl = new URL(`/api/v1/users/${params.userId}/lifecycle/reset_factors`, baseUrl).toString();
-      method = "POST";
-    }
-
+    const endpointUrl = new URL(`/api/v1/users/${params.userId}/factors`, baseUrl).toString();
     const requestConfig: AxiosRequestConfig = {
       headers: {
         Authorization: `Bearer ${authToken}`,
         Accept: "application/json",
-        "Content-Type": "application/json",
       },
     };
 
-    const response = await axiosClient.request({
-      url: endpointUrl,
-      method,
-      data: method === "POST" ? {} : undefined,
-      ...requestConfig,
-    });
+    const response = await axiosClient.get(endpointUrl, requestConfig);
 
-    if (response.status === 200 || (method === "DELETE" && response.status === 204)) {
-      return { success: true };
+    if (response.status === 200) {
+      return { success: true, factors: response.data };
     } else {
       const errorDetail =
         response.data?.errorSummary || response.data?.message || `Okta API responded with status ${response.status}`;
-      return { success: false, error: `Failed to reset MFA factor(s): ${errorDetail}` };
+      return { success: false, error: `Failed to list MFA factors: ${errorDetail}` };
     }
   } catch (error) {
-    console.error("Error resetting MFA:", error);
-    let errorMessage = "Unknown error while resetting MFA";
+    console.error("Error listing MFA factors:", error);
+    let errorMessage = "Unknown error while listing MFA factors";
 
     if (error instanceof AxiosError && error.response) {
       const oktaError = error.response.data;
@@ -73,4 +58,4 @@ const resetMFA: oktaResetMFAFunction = async ({
   }
 };
 
-export default resetMFA;
+export default listMFA;
