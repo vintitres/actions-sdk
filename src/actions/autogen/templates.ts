@@ -6668,7 +6668,7 @@ export const oktaListOktaUsersDefinition: ActionTemplate = {
 };
 export const oktaResetMFADefinition: ActionTemplate = {
   description: "Reset or remove Okta MFA for a user, including issues with Okta Verify, fingerprint, or touch ID.",
-  scopes: ["okta.users.read"],
+  scopes: ["okta.users.read", "okta.users.manage"],
   parameters: {
     type: "object",
     required: ["userId"],
@@ -6676,6 +6676,10 @@ export const oktaResetMFADefinition: ActionTemplate = {
       userId: {
         type: "string",
         description: "The ID of the user whose MFA needs to be reset.",
+      },
+      factorId: {
+        type: "string",
+        description: "Optional. The ID of the specific factor to reset. If not provided, all factors will be reset.",
       },
     },
   },
@@ -6694,6 +6698,89 @@ export const oktaResetMFADefinition: ActionTemplate = {
     },
   },
   name: "resetMFA",
+  provider: "okta",
+};
+export const oktaListMFADefinition: ActionTemplate = {
+  description: "List all MFA factors for a specific user in Okta.",
+  scopes: ["okta.users.read"],
+  parameters: {
+    type: "object",
+    required: ["userId"],
+    properties: {
+      userId: {
+        type: "string",
+        description: "The ID of the user whose MFA factors need to be listed.",
+      },
+    },
+  },
+  output: {
+    type: "object",
+    required: ["success"],
+    properties: {
+      success: {
+        type: "boolean",
+        description: "Whether the MFA factors were successfully retrieved.",
+      },
+      factors: {
+        type: "array",
+        description: "List of MFA factors for the user.",
+        items: {
+          type: "object",
+          required: ["id"],
+          properties: {
+            id: {
+              type: "string",
+              description: "The ID of the MFA factor.",
+            },
+            factorType: {
+              type: "string",
+              description: "The type of the MFA factor (e.g., question, sms, token:software:totp).",
+            },
+            provider: {
+              type: "string",
+              description: "The provider of the MFA factor (e.g., OKTA).",
+            },
+            vendorName: {
+              type: "string",
+              description: "The vendor name of the MFA factor.",
+            },
+            status: {
+              type: "string",
+              description: "The status of the MFA factor (e.g., ACTIVE, PENDING_ACTIVATION).",
+            },
+            created: {
+              type: "string",
+              description: "The timestamp when the MFA factor was created.",
+            },
+            lastUpdated: {
+              type: "string",
+              description: "The timestamp when the MFA factor was last updated.",
+            },
+            profile: {
+              type: "object",
+              description: "Additional profile information for the MFA factor.",
+              additionalProperties: true,
+            },
+            _links: {
+              type: "object",
+              description: "Links related to the MFA factor.",
+              additionalProperties: true,
+            },
+            _embedded: {
+              type: "object",
+              description: "Embedded data for the MFA factor (e.g., activation details).",
+              additionalProperties: true,
+            },
+          },
+        },
+      },
+      error: {
+        type: "string",
+        description: "Error message if the MFA factors could not be retrieved.",
+      },
+    },
+  },
+  name: "listMFA",
   provider: "okta",
 };
 export const oktaResetPasswordDefinition: ActionTemplate = {

@@ -55,7 +55,7 @@ async function getToken() {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     });
 
-    console.log('✅ Access Token:', response.data.access_token);
+    console.log(`OKTA_AUTH_TOKEN="${response.data.access_token}"`);
   } catch (error) {
     console.error('❌ Error fetching token:', error.response ? error.response.data : error);
   }

@@ -207,6 +207,8 @@ import {
   oktaResetPasswordOutputSchema,
   oktaResetMFAParamsSchema,
   oktaResetMFAOutputSchema,
+  oktaListMFAParamsSchema,
+  oktaListMFAOutputSchema,
 } from "./autogen/types";
 import validateAddress from "./providers/googlemaps/validateAddress";
 import add from "./providers/math/add";
@@ -314,6 +316,7 @@ import removeUserFromGroup from "./providers/okta/removeUserFromGroup";
 import addUserToGroup from "./providers/okta/addUserToGroup";
 import resetPassword from "./providers/okta/resetPassword";
 import resetMFA from "./providers/okta/resetMFA";
+import listMFA from "./providers/okta/listMFA";
 
 interface ActionFunctionComponents {
   // eslint-disable-next-line
@@ -894,6 +897,11 @@ export const ActionMapper: Record<string, Record<string, ActionFunctionComponent
       fn: resetMFA,
       paramsSchema: oktaResetMFAParamsSchema,
       outputSchema: oktaResetMFAOutputSchema,
+    },
+    listMFA: {
+      fn: listMFA,
+      paramsSchema: oktaListMFAParamsSchema,
+      outputSchema: oktaListMFAOutputSchema,
     },
   },
 };
