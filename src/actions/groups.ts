@@ -91,6 +91,8 @@ import {
   asanaListAsanaTasksByProjectDefinition,
   notionSearchByTitleDefinition,
   asanaGetTasksDetailsDefinition,
+  jamfGetJamfComputerInventoryDefinition,
+  jamfGetJamfFileVaultRecoveryKeyDefinition,
 } from "../actions/autogen/templates";
 import type { ActionTemplate } from "../actions/parse";
 
@@ -229,6 +231,10 @@ export const ACTION_GROUPS: ActionGroups = {
   FINNHUB: {
     description: "Action for interacting with Finnhub for stock market data",
     actions: [finnhubSymbolLookupDefinition, finnhubGetBasicFinancialsDefinition],
+  },
+  JAMF: {
+    description: "Actions for interacting with Jamf",
+    actions: [jamfGetJamfComputerInventoryDefinition, jamfGetJamfFileVaultRecoveryKeyDefinition],
   },
   LOOKER: {
     description: "Actions for interacting with Looker",
