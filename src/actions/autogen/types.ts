@@ -1,5 +1,37 @@
 import { z } from "zod";
 
+export enum ProviderName {
+  GENERIC = "generic",
+  ASANA = "asana",
+  SLACK = "slack",
+  MATH = "math",
+  CONFLUENCE = "confluence",
+  JIRA = "jira",
+  KANDJI = "kandji",
+  GOOGLEMAPS = "googlemaps",
+  BING = "bing",
+  ZENDESK = "zendesk",
+  LINKEDIN = "linkedin",
+  X = "x",
+  MONGO = "mongo",
+  SNOWFLAKE = "snowflake",
+  OPENSTREETMAP = "openstreetmap",
+  NWS = "nws",
+  FIRECRAWL = "firecrawl",
+  RESEND = "resend",
+  GOOGLEOAUTH = "googleOauth",
+  GOOGLEMAIL = "googlemail",
+  GONG = "gong",
+  FINNHUB = "finnhub",
+  LOOKER = "looker",
+  ASHBY = "ashby",
+  SALESFORCE = "salesforce",
+  MICROSOFT = "microsoft",
+  GITHUB = "github",
+  NOTION = "notion",
+  JAMF = "jamf",
+}
+
 export type ActionFunction<P, A, O> = (input: { params: P; authParams: A }) => Promise<O>;
 
 export const AuthParamsSchema = z.object({
@@ -695,73 +727,6 @@ export type bingGetTopNSearchResultUrlsFunction = ActionFunction<
   bingGetTopNSearchResultUrlsParamsType,
   AuthParamsType,
   bingGetTopNSearchResultUrlsOutputType
->;
-
-export const credalCallCopilotParamsSchema = z.object({
-  agentId: z.string().describe("The ID of the copilot to call"),
-  query: z.string().describe("The query to ask Credal Copilot"),
-  userEmail: z.string().describe("The email of the user sending or authorizing the query"),
-});
-
-export type credalCallCopilotParamsType = z.infer<typeof credalCallCopilotParamsSchema>;
-
-export const credalCallCopilotOutputSchema = z.object({
-  response: z.string().describe("The response from the Credal Copilot"),
-  referencedSources: z
-    .array(
-      z
-        .object({
-          id: z.string().describe("The id of the source"),
-          externalResourceId: z
-            .object({
-              externalResourceId: z.string().describe("The external resource id of the source"),
-              resourceType: z.string().describe("The type of the resource"),
-            })
-            .describe("The external resource id of the source"),
-          name: z.string().describe("The name of the source"),
-          url: z.string().describe("The url of the source").optional(),
-        })
-        .describe("The source referenced in the response"),
-    )
-    .describe("The sources referenced in the response")
-    .optional(),
-  sourcesInDataContext: z
-    .array(
-      z
-        .object({
-          id: z.string().describe("The id of the source"),
-          externalResourceId: z
-            .object({
-              externalResourceId: z.string().describe("The external resource id of the source"),
-              resourceType: z.string().describe("The type of the resource"),
-            })
-            .describe("The external resource id of the source"),
-          name: z.string().describe("The name of the source"),
-          url: z.string().describe("The url of the source").optional(),
-        })
-        .describe("The source in the data context of the response"),
-    )
-    .describe("The sources in the data context of the response")
-    .optional(),
-  webSearchResults: z
-    .array(
-      z
-        .object({
-          title: z.string().describe("The title of the web search result"),
-          url: z.string().describe("The url of the web search result"),
-          contents: z.string().describe("The contents of the web search result").optional(),
-        })
-        .describe("The web search result in the response"),
-    )
-    .describe("The web search results in the response")
-    .optional(),
-});
-
-export type credalCallCopilotOutputType = z.infer<typeof credalCallCopilotOutputSchema>;
-export type credalCallCopilotFunction = ActionFunction<
-  credalCallCopilotParamsType,
-  AuthParamsType,
-  credalCallCopilotOutputType
 >;
 
 export const zendeskCreateZendeskTicketParamsSchema = z.object({

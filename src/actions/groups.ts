@@ -1,7 +1,6 @@
 import {
   genericFillTemplateDefinition,
   confluenceOverwritePageDefinition,
-  credalCallCopilotDefinition,
   googlemapsValidateAddressDefinition,
   mathAddDefinition,
   mongoInsertMongoDocDefinition,
@@ -155,10 +154,6 @@ export const ACTION_GROUPS: ActionGroups = {
   GMAIL: {
     description: "Actions for interacting with Gmail",
     actions: [googlemailSearchGmailMessagesDefinition, googlemailListGmailThreadsDefinition],
-  },
-  CREDAL_CALL_COPILOT: {
-    description: "Action for calling a Credal Copilot",
-    actions: [credalCallCopilotDefinition],
   },
   LINKEDIN_SHARE_POST: {
     description: "Action for creating a share post url on linkedin",
