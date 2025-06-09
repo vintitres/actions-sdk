@@ -34,7 +34,7 @@ async function runTest() {
       statusChanged?: string | null;
       lastLogin?: string | null;
       lastUpdated?: string;
-      passwordChanged?: string;
+      passwordChanged?: string | null;
       type?: {
         id?: string;
       };
@@ -81,8 +81,9 @@ async function runTest() {
       );
       assert(
         typeof user.passwordChanged === "string" ||
+          user.passwordChanged === null ||
           user.passwordChanged === undefined,
-        "User passwordChanged should be a string or undefined"
+        "User passwordChanged should be a string, null, or undefined"
       );
       assert(
         user.type === undefined || typeof user.type === "object",
@@ -137,7 +138,6 @@ async function runTest() {
     const foundUser = searchResult.users[0];
     assert(foundUser.id, "Found user should have an ID");
     console.log(foundUser);
-    ``;
     assert(
       foundUser.profile.email === testUserEmail,
       "Found user's email should match the test email"
